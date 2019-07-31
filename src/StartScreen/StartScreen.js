@@ -4,7 +4,7 @@ import { LinearScale } from "styled-icons/material/LinearScale";
 import SubmitButton from "../Components/SubmitButton";
 import CreateCompany from "../Components/CreateCompany";
 import Input from "../Components/InputField";
-import firebase from "firebase";
+
 import BossDashboard from "../Components/BossDashboard";
 const StyledSection = styled.section`
   display: flex;
@@ -48,11 +48,21 @@ class StartScreen extends Component {
     isCompany: false,
     isCreateMenu: false,
     companyName: "",
-    workers: []
+    workers: [],
+    id: 0,
+    idEditedElement: 0,
+    globalEvents: []
   };
   handleCreateCompany = () => {
     this.setState({
       isCreateMenu: !this.state.isCreateMenu
+    });
+  };
+  handleIdChange = () => {
+    console.log(this.state.id);
+
+    return this.setState({
+      id: this.state.id + 1
     });
   };
   handleSetCompanyName = name => {
@@ -81,44 +91,66 @@ class StartScreen extends Component {
     });
     console.log("CREATUJE");
   };
-  componentDidMount() {
-    var firebaseConfig = {
-      apiKey: "AIzaSyBxCDOhCIh3q4I-lVpHhTjvj_X4SV7jMJw",
-      authDomain: "company-bc021.firebaseapp.com",
-      databaseURL: "https://company-bc021.firebaseio.com",
-      projectId: "company-bc021",
-      storageBucket: "",
-      messagingSenderId: "156522290116",
-      appId: "1:156522290116:web:33c09ddb7c0c68ac"
-    };
-    firebase.initializeApp(firebaseConfig);
-    console.log(firebase);
-    const database = firebase.database();
-    const fruits = database.ref("owocki");
-    const data = {
-      name: "Essa",
-      price: 15
-    };
-    fruits.push(data);
-    console.log(data);
-  }
-  workerIndex = worker => {
-    console.log(worker.id);
-    return worker.name;
-  };
+
   handleDeleteUser = e => {
-    const index = this.state.workers.findIndex(this.workerIndex);
-    console.log("klik", index);
+    // const index = this.state.workers.findIndex(index =>
+    //   this.workerIndex(this.workerIndex)
+    // );
+    // this.workerIndex(index);
+    const workers = [...this.state.workers];
+
+    const mainDiv = e.target.parentNode.parentNode;
+    const index = [...mainDiv.parentElement.children].indexOf(mainDiv);
+    console.log(workers);
+    workers.splice(index, 1);
+    this.setState({
+      workers
+    });
+  };
+  handleEditUser = e => {
+    const workers = [...this.state.workers];
+
+    const mainDiv = e.target.parentNode.parentNode;
+    const index = [...mainDiv.parentElement.children].indexOf(mainDiv);
+    console.log(index);
+    this.setState({
+      idEditedElement: index
+    });
+  };
+  handleUserDataChange = (index, name, surname, salary, position) => {
+    console.log(index, name, surname, salary, position, "XDX");
+    const workers = [...this.state.workers];
+    workers[index].name = name;
+    workers[index].surname = surname;
+    workers[index].salary = salary;
+    workers[index].position = position;
+    this.forceUpdate();
+  };
+  handleCreateEvent = (text, date) => {
+    // console.log(date, "Dziala", text);
+    const obj = {
+      text,
+      date
+    };
+    // console.log(obj);
+    this.state.globalEvents.push(obj);
+    console.log(this.state.globalEvents);
   };
 
   render() {
     return (
       <StyledSection>
-        {/* <BossDashboard
+        <BossDashboard
           workers={this.state.workers}
           create={this.createWorker}
           deleteUser={this.handleDeleteUser}
-        /> */}
+          handleIdChange={this.handleIdChange}
+          id={this.state.id}
+          handleUserDataChange={this.handleUserDataChange}
+          handleEditUser={this.handleEditUser}
+          idEditedElement={this.state.idEditedElement}
+          handleCreateEvent={this.handleCreateEvent}
+        />
         <StyledCompanyGreeting>
           {this.state.companyName ? (
             `Log in to  ${this.state.companyName}`
@@ -133,6 +165,8 @@ class StartScreen extends Component {
               activeMenu={this.handleCreateCompany}
               setWorkers={this.handleSetWokers}
               create={this.createWorker}
+              handleIdChange={this.handleIdChange}
+              id={this.state.id}
             />
           ) : null}
         </StyledCompanyGreeting>

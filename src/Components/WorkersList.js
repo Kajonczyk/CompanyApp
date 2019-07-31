@@ -14,7 +14,7 @@ const DeleteButton = styled.div`
   background-color: orange;
   line-height: 30px;
 `;
-const StyledBin = styled(Bin2)`
+const StyledBin = styled.button`
   height: 30px;
   width: 30px;
   padding: 8px;
@@ -34,23 +34,56 @@ const StyledPencil = styled(Pencil)`
     cursor: pointer;
   }
 `;
+
 const WorkersList = ({
   name,
   surname,
   salary,
   position,
   isVisible,
-  deleteUser
+  deleteUser,
+  handleEditUser,
+  handleUserChange
 }) => {
+  function onClickFunctions() {}
+
   return (
     <StyledDiv>
       <p>{name}</p>
       <p>{surname}</p>
       <p>{salary}</p>
       <p>{position}</p>
-      {isVisible ? <StyledBin onClick={() => deleteUser()} /> : null}
-      {isVisible ? <StyledPencil /> : null}
+      {isVisible ? (
+        <>
+          <div>
+            <StyledBin
+              onClick={e => {
+                deleteUser(e);
+              }}
+            />
+          </div>
+          <div>
+            {" "}
+            <StyledPencil
+              onClick={e => {
+                handleEditUser(e);
+                handleUserChange();
+              }}
+            />
+          </div>
+        </>
+      ) : null}
+      {/* {isVisible ? (
+        <div>
+          <StyledPencil
+            onClick={e => {
+              handleEditUser(e);
+            }}
+          />
+        </div>
+      ) : null} */}
     </StyledDiv>
   );
 };
+
 export default WorkersList;

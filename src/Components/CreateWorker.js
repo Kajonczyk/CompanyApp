@@ -3,6 +3,7 @@ import styled from "styled-components";
 import StyledDiv from "../Components/FullHeWiDiv";
 import Input from "../Components/InputField";
 import SubmitButton from "../Components/SubmitButton";
+
 const StyledDivWrapper = styled(StyledDiv)`
   background-color: ${({ theme }) => theme.white}
   transition: transform 2s;
@@ -19,12 +20,12 @@ class CreateWorker extends Component {
     login: "",
     password: ""
   };
-  handleIdChange = () => {
-    console.log(this.state.id);
-    return this.setState({
-      id: this.state.id + 1
-    });
-  };
+  // handleIdChange = () => {
+  //   console.log(this.state.id);
+  //   return this.setState({
+  //     id: this.state.id + 1
+  //   });
+  // };
   handleChange = e => {
     const id = e.target.id;
     let value = e.target.value;
@@ -34,14 +35,16 @@ class CreateWorker extends Component {
     console.log(`${id} is : ${this.state[id]}`);
   };
   handleSubmit = () => {
-    this.handleIdChange();
     const { id, name, surname, salary, position } = this.state;
+    this.props.handleIdChange();
+
     let loginName = name;
     let loginSurname = surname;
     let login = loginName + loginSurname + id;
     let password = id + loginSurname + loginName;
     this.props.create(id, name, surname, salary, position, login, password);
     this.setState({
+      id: this.props.id,
       name: "",
       surname: "",
       salary: "",

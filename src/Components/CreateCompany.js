@@ -133,6 +133,8 @@ class CreateCompany extends Component {
             create={this.createWorker}
             show={this.showWorkers}
             close={this.closeCreateWorker}
+            handleIdChange={this.props.handleIdChange}
+            id={this.props.id}
           />
         ) : null}
         <StyledSubmitButton onClick={this.handleSubmit}>

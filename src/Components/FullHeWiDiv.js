@@ -1,6 +1,6 @@
 import styled from "styled-components";
 const StyledDiv = styled.div`
-  height: 100%;
+  min-height: 100%;
   position: fixed;
   left: 50%;
   top: 50%;

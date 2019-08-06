@@ -7,6 +7,11 @@ class EventDashboard extends Component {
     value: "",
     date: ""
   };
+  sortArray(array) {
+    let temp;
+    const filteredOdd = array.filter(x => x % 2).sort((a, b) => a - b);
+    return array.map(x => (x % 2 ? filteredOdd.shift() : x));
+  }
   handleChange = (e, type) => {
     let value = e.target.value;
     type = e.target.type;
@@ -23,6 +28,7 @@ class EventDashboard extends Component {
     }
     console.log(type);
   };
+
   render() {
     const { value, date } = this.state;
     return (

@@ -15,4 +15,5 @@ const Input = styled.input`
     color: ${({ theme }) => theme.green};
   }
 `;
+
 export default Input;

@@ -49,8 +49,27 @@ const StyledWorkersList = styled.div`
 class CreateCompany extends Component {
   state = {
     clickedButton: false,
-    companyName: "",
-    workers: [],
+    companyName: "XD",
+    workers: [
+      {
+        id: 0,
+        login: "213",
+        name: "21312",
+        password: "312",
+        position: "4",
+        salary: "23",
+        surname: "3"
+      },
+      {
+        id: 1,
+        login: "111",
+        name: "222",
+        password: "222",
+        position: "4",
+        salary: "23",
+        surname: "3"
+      }
+    ],
     isCompanyNameEmpty: false
   };
   handleClick = () => {

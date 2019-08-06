@@ -6,6 +6,7 @@ import CreateCompany from "../Components/CreateCompany";
 import Input from "../Components/InputField";
 
 import BossDashboard from "../Components/BossDashboard";
+import UserDashboard from "../Components/UserDashboard";
 const StyledSection = styled.section`
   display: flex;
   text-align: center;
@@ -48,7 +49,28 @@ class StartScreen extends Component {
     isCompany: false,
     isCreateMenu: false,
     companyName: "",
-    workers: [],
+    loginForm: "",
+    passwordForm: "",
+    workers: [
+      // {
+      //   id: 0,
+      //   login: "12330",
+      //   name: "123",
+      //   password: "03123",
+      //   position: "65",
+      //   salary: "4",
+      //   surname: "3"
+      // },
+      // {
+      //   id: 1,
+      //   login: "938ui5",
+      //   name: "9035",
+      //   password: "938xd",
+      //   position: "65",
+      //   salary: "4",
+      //   surname: "3"
+      // }
+    ],
     id: 0,
     idEditedElement: 0,
     globalEvents: []
@@ -79,6 +101,37 @@ class StartScreen extends Component {
       return console.log(this.state.workers);
     }, 300);
   };
+  //
+  //
+  //
+  //
+
+  handleChange = e => {
+    let value = e.target.value;
+    let name = e.target.name;
+    this.setState({
+      [name]: value
+    });
+  };
+  handleSubmit = e => {
+    e.preventDefault();
+
+    const { workers, loginForm, passwordForm } = this.state;
+    console.log("siema");
+
+    workers.forEach((worker, i) => {
+      if (loginForm === workers[i].login) {
+        // setTimeout(() => console.log("Pasuje"), 20);
+        if (passwordForm === workers[i].password) {
+          console.log("TA LOGUJJJJ");
+        }
+      }
+    });
+  };
+  //
+  //
+  //
+  //
   createWorker = (id, name, surname, salary, position, login, password) => {
     this.state.workers.push({
       id,
@@ -151,6 +204,7 @@ class StartScreen extends Component {
           idEditedElement={this.state.idEditedElement}
           handleCreateEvent={this.handleCreateEvent}
         />
+        {/* <UserDashboard /> */}
         <StyledCompanyGreeting>
           {this.state.companyName ? (
             `Log in to  ${this.state.companyName}`
@@ -177,14 +231,24 @@ class StartScreen extends Component {
         <StyledLoginWrapper>
           <form>
             <br />
-            <Input type="text" placeholder="Login" />
+            <Input
+              type="text"
+              placeholder="Login"
+              onChange={this.handleChange}
+              name="loginForm"
+            />
             <br />
             <br />
             <br />
             <br />
-            <Input type="password" placeholder="Password" />
+            <Input
+              type="password"
+              placeholder="Password"
+              name="passwordForm"
+              onChange={this.handleChange}
+            />
 
-            <SubmitButton>Login</SubmitButton>
+            <SubmitButton onClick={this.handleSubmit}>Login</SubmitButton>
           </form>
         </StyledLoginWrapper>
       </StyledSection>

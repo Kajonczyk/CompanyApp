@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import StyledDiv from "../Components/FullHeWiDiv";
 import { Tick } from "styled-icons/typicons/Tick";
+import history from "../Components/history";
 import { Cancel } from "styled-icons/typicons/Cancel";
+import { withRouter } from "react-router";
 
 const StyledAttendanceList = styled.div`
   width: 95%;
@@ -63,6 +65,7 @@ class UserDashboard extends Component {
     isCheckedIn: false,
     isCheckedOut: false
   };
+
   handleData = () => {
     const d = new Date();
     return this.setState({
@@ -93,6 +96,8 @@ class UserDashboard extends Component {
   };
   componentDidMount() {
     this.handleData();
+    console.log(history.location);
+    console.log(this.props);
   }
   handleTickClick = type => {
     // console.log("tick");
@@ -132,6 +137,7 @@ class UserDashboard extends Component {
       }
     }
   };
+
   render() {
     return (
       <StyledDiv>
@@ -191,4 +197,4 @@ class UserDashboard extends Component {
   }
 }
 
-export default UserDashboard;
+export default withRouter(UserDashboard);

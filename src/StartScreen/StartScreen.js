@@ -1,9 +1,13 @@
 import React, { Component } from "react";
+import { Router, Route, Switch } from "react-router-dom";
+import { withRouter } from "react-router";
 import styled from "styled-components";
+
 import { LinearScale } from "styled-icons/material/LinearScale";
 import SubmitButton from "../Components/SubmitButton";
 import CreateCompany from "../Components/CreateCompany";
 import Input from "../Components/InputField";
+import history from "../Components/history";
 
 import BossDashboard from "../Components/BossDashboard";
 import UserDashboard from "../Components/UserDashboard";
@@ -75,6 +79,7 @@ class StartScreen extends Component {
     idEditedElement: 0,
     globalEvents: []
   };
+
   handleCreateCompany = () => {
     this.setState({
       isCreateMenu: !this.state.isCreateMenu
@@ -105,7 +110,11 @@ class StartScreen extends Component {
   //
   //
   //
-
+  componentDidMount() {
+    console.log(history.location);
+    console.log(history);
+    console.log(this.props);
+  }
   handleChange = e => {
     let value = e.target.value;
     let name = e.target.name;
@@ -117,14 +126,15 @@ class StartScreen extends Component {
     e.preventDefault();
 
     const { workers, loginForm, passwordForm } = this.state;
-    console.log("siema");
+    console.log(this.props.history);
 
     workers.forEach((worker, i) => {
-      if (loginForm === workers[i].login) {
-        // setTimeout(() => console.log("Pasuje"), 20);
-        if (passwordForm === workers[i].password) {
-          console.log("TA LOGUJJJJ");
-        }
+      if (
+        loginForm === workers[i].login &&
+        passwordForm === workers[i].password
+      ) {
+        console.log("Zalogowano jako user");
+        return this.props.history.push("/user");
       }
     });
   };
@@ -193,17 +203,28 @@ class StartScreen extends Component {
   render() {
     return (
       <StyledSection>
-        <BossDashboard
-          workers={this.state.workers}
-          create={this.createWorker}
-          deleteUser={this.handleDeleteUser}
-          handleIdChange={this.handleIdChange}
-          id={this.state.id}
-          handleUserDataChange={this.handleUserDataChange}
-          handleEditUser={this.handleEditUser}
-          idEditedElement={this.state.idEditedElement}
-          handleCreateEvent={this.handleCreateEvent}
-        />
+        <Router history={history}>
+          <Switch>
+            <Route path="/user" render={() => <UserDashboard />} />
+            <Route
+              path="/boss"
+              render={() => (
+                <BossDashboard
+                  workers={this.state.workers}
+                  create={this.createWorker}
+                  deleteUser={this.handleDeleteUser}
+                  handleIdChange={this.handleIdChange}
+                  id={this.state.id}
+                  handleUserDataChange={this.handleUserDataChange}
+                  handleEditUser={this.handleEditUser}
+                  idEditedElement={this.state.idEditedElement}
+                  handleCreateEvent={this.handleCreateEvent}
+                />
+              )}
+            />
+          </Switch>
+        </Router>
+        {/*  */}
         {/* <UserDashboard /> */}
         <StyledCompanyGreeting>
           {this.state.companyName ? (
@@ -256,4 +277,22 @@ class StartScreen extends Component {
   }
 }
 
-export default StartScreen;
+export default withRouter(StartScreen);
+{
+  /* <Route
+path="/boss"
+render={() => (
+  <BossDashboard
+    workers={this.state.workers}
+    create={this.createWorker}
+    deleteUser={this.handleDeleteUser}
+    handleIdChange={this.handleIdChange}
+    id={this.state.id}
+    handleUserDataChange={this.handleUserDataChange}
+    handleEditUser={this.handleEditUser}
+    idEditedElement={this.state.idEditedElement}
+    handleCreateEvent={this.handleCreateEvent}
+  />
+)}
+/> */
+}

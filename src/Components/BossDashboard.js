@@ -5,6 +5,7 @@ import SubmitButton from "../Components/SubmitButton";
 import CreateWorker from "../Components/CreateWorker";
 import ChangeWorkersData from "../Components/ChangeWorkersData";
 import EventDashboard from "../Components/EventDashboard";
+import { withRouter } from "react-router";
 const StyledDiv = styled.div`
   min-height: 100vh;
   width: 100%;
@@ -138,4 +139,4 @@ class BossDashboard extends Component {
     );
   }
 }
-export default BossDashboard;
+export default withRouter(BossDashboard);

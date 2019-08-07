@@ -5,6 +5,7 @@ import { Tick } from "styled-icons/typicons/Tick";
 import history from "../Components/history";
 import { Cancel } from "styled-icons/typicons/Cancel";
 import { withRouter } from "react-router";
+import SubmitButton from "../Components/SubmitButton";
 
 const StyledAttendanceList = styled.div`
   width: 95%;
@@ -55,6 +56,13 @@ const StyledTick = styled(Tick)`
 const StyledCancel = styled(Cancel)`
   border-bottom: 1px solid ${({ theme }) => theme.green};
 `;
+const StyledLogOutButton = styled(SubmitButton)`
+  background-color: ${({ theme }) => theme.white};
+  color: ${({ theme }) => theme.green};
+  padding: 5px 10px;
+  box-shadow: 0px 0px 2px ${({ theme }) => theme.white};
+  font-size: ${({ theme }) => theme.font.size.xs};
+`;
 class UserDashboard extends Component {
   state = {
     date: "",
@@ -71,6 +79,9 @@ class UserDashboard extends Component {
     return this.setState({
       date: d.toLocaleDateString()
     });
+  };
+  handleLogOut = () => {
+    this.props.history.push("/");
   };
   handleCheckClick = status => {
     const {
@@ -103,9 +114,8 @@ class UserDashboard extends Component {
     // console.log("tick");
   };
   handleButtonClick = (type, direction) => {
+    //d.toLocaleString().substr(0,9)
     if (type === "cross") {
-      //
-      //
       if (direction === "in") {
         this.setState({
           checkInClicked: !this.state.checkInClicked
@@ -117,16 +127,33 @@ class UserDashboard extends Component {
       }
     } else if (type === "tick") {
       //
-      console.log(type, direction);
+      console.log(this.props.user, this.props.user.dates);
 
       //
       if (direction === "in") {
         const d = new Date();
+        console.log(this.props.user.id);
         this.setState({
           checkInClicked: !this.state.checkInClicked,
           isCheckedIn: !this.state.isCheckedIn,
           checkInTime: d.toISOString().substr(11, 8)
         });
+        const {
+          handleUserDateChange,
+          user,
+          date,
+          checkInClicked,
+          checkOutClicked
+        } = this.props;
+        console.log(this.state.checkInTime);
+        return setTimeout(() => {
+          this.props.handleUserDateChange(
+            this.props.user.id,
+            this.state.date,
+            this.state.checkInTime,
+            this.state.checkOutTime
+          );
+        }, 300);
       } else if (direction === "out") {
         const d = new Date();
         this.setState({
@@ -134,15 +161,26 @@ class UserDashboard extends Component {
           isCheckedOut: !this.state.isCheckedOut,
           checkOutTime: d.toISOString().substr(11, 8)
         });
+        return setTimeout(() => {
+          this.props.handleUserDateChange(
+            this.props.user.id,
+            this.state.date,
+            this.state.checkInTime,
+            this.state.checkOutTime
+          );
+        }, 300);
       }
     }
   };
 
   render() {
+    const { name, surname } = this.props.user;
     return (
       <StyledDiv>
         <div>
-          <p>You're logged as: </p>
+          <p>
+            You're logged as {name} {surname}
+          </p>
         </div>
 
         <StyledAttendanceList />
@@ -167,7 +205,7 @@ class UserDashboard extends Component {
                 </div>
               </StyledConfirmDiv>
             ) : null}
-            {this.state.isCheckedIn ? this.state.checkInTime : "Check IN"}
+            {this.state.isCheckedIn ? this.state.checkInTime : "Sign In"}
           </StyledCheckIn>
 
           <StyledCheckOut onClick={() => this.handleCheckClick("out")}>
@@ -189,9 +227,12 @@ class UserDashboard extends Component {
                 </div>
               </StyledConfirmDiv>
             ) : null}
-            {this.state.isCheckedOut ? this.state.checkOutTime : "Check Out"}
+            {this.state.isCheckedOut ? this.state.checkOutTime : "Sign Out"}
           </StyledCheckOut>
         </StyledAttendanceDiv>
+        <StyledLogOutButton onClick={this.handleLogOut}>
+          Log Out{" "}
+        </StyledLogOutButton>
       </StyledDiv>
     );
   }

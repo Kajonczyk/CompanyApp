@@ -63,7 +63,10 @@ class BossDashboard extends Component {
   state = {
     isUserBeingCreated: false,
     clickedButton: false,
-    isUserBeingChanged: false
+    isUserBeingChanged: false,
+    workerIdPreview: null,
+    selectValue: 0,
+    date: null
   };
   handleClick = () => {
     this.setState({
@@ -71,6 +74,12 @@ class BossDashboard extends Component {
     });
     console.log(this.props.workers);
   };
+  componentDidMount() {
+    const d = new Date();
+    this.setState({
+      date: d.toLocaleDateString()
+    });
+  }
   handleForceUpdate = () => {
     this.forceUpdate();
   };
@@ -79,6 +88,38 @@ class BossDashboard extends Component {
       isUserBeingChanged: !this.state.isUserBeingChanged
     });
     console.log(this.state.isUserBeingCreated);
+  };
+  updateText = (type, text) => {
+    if (type === "in") {
+      // return this.props.workers[this.state.selectValue].dates.signIn;
+      return text;
+    } else if (type === "out") {
+      // return this.props.workers[this.state.selectValue].dates.signOut;
+      return text;
+    }
+  };
+  handleSelectChange = e => {
+    console.log(e.target.value);
+    this.setState({
+      selectValue: e.target.value
+    });
+    setTimeout(() => {
+      console.log(this.props.workers[this.state.selectValue].dates);
+      const text = this.props.workers[this.state.selectValue].dates[
+        this.state.date
+      ];
+      console.log(
+        "DZIALA KURWA",
+        this.props.workers[this.state.selectValue].dates[this.state.date],
+        Boolean(
+          this.props.workers[this.state.selectValue].dates[this.state.date]
+        )
+      );
+      this.updateText("in", text);
+    }, 500);
+
+    // console.log(this.props.workers);
+    // console.log(this.props.workers[this.state.selectValue]);
   };
 
   render() {
@@ -119,16 +160,48 @@ class BossDashboard extends Component {
 
         <WorkerPrevievWrapper>
           <StyledParagraph>Employees Preview</StyledParagraph>
-          <select>
+          <select onChange={this.handleSelectChange}>
             {this.props.workers.map(worker => (
-              <option>
+              <option value={worker.id}>
                 {worker.name} {worker.surname}
               </option>
             ))}
           </select>
           <StyledWrapper>
-            <StyledWorkerPreview>Text</StyledWorkerPreview>
-            <StyledWorkerPreview>Text</StyledWorkerPreview>
+            <StyledWorkerPreview>
+              {/* {Boolean(
+                this.props.workers[this.state.selectValue].dates[
+                  this.state.date
+                ]
+              )
+                ? "SIEMA"
+                : "XDXDXDX"} */}
+              {this.state.selectValue &&
+              Boolean(
+                this.props.workers[this.state.selectValue].dates[
+                  this.state.date
+                ]
+              )
+                ? this.props.workers[this.state.selectValue].dates[
+                    this.state.date
+                  ].signIn
+                : null}
+            </StyledWorkerPreview>
+            <StyledWorkerPreview>
+              {/* {this.state.selectValue
+                ? [this.state.selectValue].dates.signOut
+                : null} */}
+              {this.state.selectValue &&
+              Boolean(
+                this.props.workers[this.state.selectValue].dates[
+                  this.state.date
+                ]
+              )
+                ? this.props.workers[this.state.selectValue].dates[
+                    this.state.date
+                  ].signOut
+                : null}
+            </StyledWorkerPreview>
           </StyledWrapper>
         </WorkerPrevievWrapper>
         <EventDashboard handleCreateEvent={this.props.handleCreateEvent} />

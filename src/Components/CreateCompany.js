@@ -53,21 +53,22 @@ class CreateCompany extends Component {
     workers: [
       {
         id: 0,
-        login: "213",
+        login: "1",
         name: "21312",
-        password: "312",
+        password: "1",
         position: "4",
         salary: "23",
         surname: "3"
       },
       {
         id: 1,
-        login: "111",
-        name: "222",
-        password: "222",
+        login: "2",
+        name: "2",
+        password: "2",
         position: "4",
         salary: "23",
-        surname: "3"
+        surname: "3",
+        dates: {}
       }
     ],
     isCompanyNameEmpty: false

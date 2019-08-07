@@ -55,6 +55,7 @@ class StartScreen extends Component {
     companyName: "",
     loginForm: "",
     passwordForm: "",
+    userIndex: "",
     workers: [
       // {
       //   id: 0,
@@ -102,9 +103,6 @@ class StartScreen extends Component {
       workers: args
     });
     console.log(this.state.workers);
-    setTimeout(() => {
-      return console.log(this.state.workers);
-    }, 300);
   };
   //
   //
@@ -134,7 +132,12 @@ class StartScreen extends Component {
         passwordForm === workers[i].password
       ) {
         console.log("Zalogowano jako user");
+        this.setState({
+          userIndex: i
+        });
         return this.props.history.push("/user");
+      } else if (loginForm === "boss" && passwordForm === "boss") {
+        return this.props.history.push("/boss");
       }
     });
   };
@@ -150,7 +153,8 @@ class StartScreen extends Component {
       salary,
       position,
       login,
-      password
+      password,
+      dates: {}
     });
     console.log("CREATUJE");
   };
@@ -180,6 +184,37 @@ class StartScreen extends Component {
       idEditedElement: index
     });
   };
+  //
+  //
+  //
+  //
+  //
+  //
+  handleUserDateChange = (index, date, signIn, signOut) => {
+    const workers = [...this.state.workers];
+    console.log(workers[index]);
+    console.log([...this.state.workers]);
+    console.log(typeof workers);
+    console.log(workers);
+    const d = new Date();
+    d.toLocaleString().substr(0, 9);
+    const inputDate = {
+      [date]: {
+        signIn: signIn,
+        signOut: signOut
+      }
+    };
+    return Object.assign(workers[index], { dates: inputDate });
+    console.log(workers[1]);
+
+    // return inputDate;
+  };
+  //
+  //
+  //
+  //
+  //
+  //
   handleUserDataChange = (index, name, surname, salary, position) => {
     console.log(index, name, surname, salary, position, "XDX");
     const workers = [...this.state.workers];
@@ -205,7 +240,16 @@ class StartScreen extends Component {
       <StyledSection>
         <Router history={history}>
           <Switch>
-            <Route path="/user" render={() => <UserDashboard />} />
+            <Route exact path="/" />
+            <Route
+              path="/user"
+              render={() => (
+                <UserDashboard
+                  user={this.state.workers[this.state.userIndex]}
+                  handleUserDateChange={this.handleUserDateChange}
+                />
+              )}
+            />
             <Route
               path="/boss"
               render={() => (
@@ -278,21 +322,3 @@ class StartScreen extends Component {
 }
 
 export default withRouter(StartScreen);
-{
-  /* <Route
-path="/boss"
-render={() => (
-  <BossDashboard
-    workers={this.state.workers}
-    create={this.createWorker}
-    deleteUser={this.handleDeleteUser}
-    handleIdChange={this.handleIdChange}
-    id={this.state.id}
-    handleUserDataChange={this.handleUserDataChange}
-    handleEditUser={this.handleEditUser}
-    idEditedElement={this.state.idEditedElement}
-    handleCreateEvent={this.handleCreateEvent}
-  />
-)}
-/> */
-}

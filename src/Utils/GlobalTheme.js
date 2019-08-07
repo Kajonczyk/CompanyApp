@@ -5,6 +5,7 @@ body{
     margin:0px;
     font-size: 62.5%;
     background-color:#FFFFF0;
+    position:relative;
     
 }
 *, *::before, *::after{

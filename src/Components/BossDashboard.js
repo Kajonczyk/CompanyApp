@@ -5,9 +5,10 @@ import SubmitButton from "../Components/SubmitButton";
 import CreateWorker from "../Components/CreateWorker";
 import ChangeWorkersData from "../Components/ChangeWorkersData";
 import EventDashboard from "../Components/EventDashboard";
+
 import { withRouter } from "react-router";
 const StyledDiv = styled.div`
-  min-height: 100vh;
+  min-height: 150vh;
   width: 100%;
 `;
 const StyledWorkersList = styled.div`
@@ -68,6 +69,7 @@ class BossDashboard extends Component {
     selectValue: 0,
     date: null
   };
+
   handleClick = () => {
     this.setState({
       isUserBeingCreated: !this.state.isUserBeingCreated
@@ -80,6 +82,9 @@ class BossDashboard extends Component {
       date: d.toLocaleDateString()
     });
   }
+  handleLogOut = () => {
+    this.props.history.push("/");
+  };
   handleForceUpdate = () => {
     this.forceUpdate();
   };
@@ -104,12 +109,10 @@ class BossDashboard extends Component {
       selectValue: e.target.value
     });
     setTimeout(() => {
-      console.log(this.props.workers[this.state.selectValue].dates);
       const text = this.props.workers[this.state.selectValue].dates[
         this.state.date
       ];
       console.log(
-        "DZIALA KURWA",
         this.props.workers[this.state.selectValue].dates[this.state.date],
         Boolean(
           this.props.workers[this.state.selectValue].dates[this.state.date]
@@ -161,6 +164,9 @@ class BossDashboard extends Component {
         <WorkerPrevievWrapper>
           <StyledParagraph>Employees Preview</StyledParagraph>
           <select onChange={this.handleSelectChange}>
+            <option disabled={true} selected={true}>
+              Choose Employee
+            </option>
             {this.props.workers.map(worker => (
               <option value={worker.id}>
                 {worker.name} {worker.surname}
@@ -169,13 +175,6 @@ class BossDashboard extends Component {
           </select>
           <StyledWrapper>
             <StyledWorkerPreview>
-              {/* {Boolean(
-                this.props.workers[this.state.selectValue].dates[
-                  this.state.date
-                ]
-              )
-                ? "SIEMA"
-                : "XDXDXDX"} */}
               {this.state.selectValue &&
               Boolean(
                 this.props.workers[this.state.selectValue].dates[
@@ -185,7 +184,7 @@ class BossDashboard extends Component {
                 ? this.props.workers[this.state.selectValue].dates[
                     this.state.date
                   ].signIn
-                : null}
+                : "Data not set"}
             </StyledWorkerPreview>
             <StyledWorkerPreview>
               {/* {this.state.selectValue
@@ -200,7 +199,7 @@ class BossDashboard extends Component {
                 ? this.props.workers[this.state.selectValue].dates[
                     this.state.date
                   ].signOut
-                : null}
+                : "Data not set"}
             </StyledWorkerPreview>
           </StyledWrapper>
         </WorkerPrevievWrapper>
@@ -208,6 +207,7 @@ class BossDashboard extends Component {
         <div>Amount of Employees: {this.props.workers.length}</div>
         <div>Working: {this.props.workers.length}</div>
         <div>Absent: {this.props.workers.length}</div>
+        <SubmitButton onClick={this.handleLogOut}>Log Out</SubmitButton>
       </StyledDiv>
     );
   }

@@ -7,11 +7,6 @@ class EventDashboard extends Component {
     value: "",
     date: ""
   };
-  sortArray(array) {
-    let temp;
-    const filteredOdd = array.filter(x => x % 2).sort((a, b) => a - b);
-    return array.map(x => (x % 2 ? filteredOdd.shift() : x));
-  }
   handleChange = (e, type) => {
     let value = e.target.value;
     type = e.target.type;
@@ -42,6 +37,7 @@ class EventDashboard extends Component {
           rows="5"
           value={this.state.value}
           onChange={this.handleChange}
+          placeholder="Your text goes here"
         />
         <SubmitButton onClick={() => this.props.handleCreateEvent(value, date)}>
           Submit

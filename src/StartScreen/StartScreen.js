@@ -8,7 +8,6 @@ import SubmitButton from "../Components/SubmitButton";
 import CreateCompany from "../Components/CreateCompany";
 import Input from "../Components/InputField";
 import history from "../Components/history";
-
 import BossDashboard from "../Components/BossDashboard";
 import UserDashboard from "../Components/UserDashboard";
 const StyledSection = styled.section`
@@ -226,12 +225,15 @@ class StartScreen extends Component {
   };
   handleCreateEvent = (text, date) => {
     // console.log(date, "Dziala", text);
+    const globalEvents = [...this.state.globalEvents];
     const obj = {
-      text,
-      date
+      [date]: { text }
     };
     // console.log(obj);
-    this.state.globalEvents.push(obj);
+    globalEvents.push(obj);
+    this.setState({
+      globalEvents: globalEvents
+    });
     console.log(this.state.globalEvents);
   };
 
@@ -247,6 +249,7 @@ class StartScreen extends Component {
                 <UserDashboard
                   user={this.state.workers[this.state.userIndex]}
                   handleUserDateChange={this.handleUserDateChange}
+                  globalEvents={this.state.globalEvents}
                 />
               )}
             />

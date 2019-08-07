@@ -6,6 +6,7 @@ import history from "../Components/history";
 import { Cancel } from "styled-icons/typicons/Cancel";
 import { withRouter } from "react-router";
 import SubmitButton from "../Components/SubmitButton";
+import UserEventDasboard from "../Components/UserEventDasboard";
 
 const StyledAttendanceList = styled.div`
   width: 95%;
@@ -230,6 +231,7 @@ class UserDashboard extends Component {
             {this.state.isCheckedOut ? this.state.checkOutTime : "Sign Out"}
           </StyledCheckOut>
         </StyledAttendanceDiv>
+        <UserEventDasboard globalEvents={this.props.globalEvents} />
         <StyledLogOutButton onClick={this.handleLogOut}>
           Log Out{" "}
         </StyledLogOutButton>

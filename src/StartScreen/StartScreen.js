@@ -227,7 +227,10 @@ class StartScreen extends Component {
     // console.log(date, "Dziala", text);
     const globalEvents = [...this.state.globalEvents];
     const obj = {
-      [date]: { text }
+      date: {
+        date: date,
+        text: text
+      }
     };
     // console.log(obj);
     globalEvents.push(obj);

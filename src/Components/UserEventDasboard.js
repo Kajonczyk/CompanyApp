@@ -5,21 +5,32 @@ const StyledDiv = styled.div`
   height: 100px;
   width: 90%;
   display: flex;
-  justify-content: space-between;
-  padding-top: 30px;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: ${({ theme }) => theme.white};
+  color: black;
+  overflow: hidden;
+  overflow-y: scroll;
+`;
+const StyledSingleEventDiv = styled.div`
+  width: 100%;
+  padding: 20px 0px;
+  border-bottom: 2px solid ${({ theme }) => theme.green};
+  font-size: ${({ theme }) => theme.font.size.xs};
 `;
 
 const UserEventDasboard = ({ globalEvents }) => {
-  console.log(globalEvents);
-  const date = new Date().toISOString().substr(0, 10);
   return (
     <StyledDiv>
-      {globalEvents.map((event, index) => (
-        <div>
-          <div>{event.date}</div>
-          <div>{event.text}</div>
-        </div>
-      ))}
+      {globalEvents.length > 0
+        ? globalEvents.map(event => (
+            <StyledSingleEventDiv>
+              <div>{event.date.date}</div>
+              <div>{event.date.text}</div>
+            </StyledSingleEventDiv>
+          ))
+        : null}
     </StyledDiv>
   );
 };

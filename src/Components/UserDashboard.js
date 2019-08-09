@@ -12,7 +12,7 @@ const StyledAttendanceList = styled.div`
   width: 95%;
   background-color: ${({ theme }) => theme.white};
   margin-top: 50px;
-  height: 350px;
+  height: 150px;
 `;
 const StyledAttendanceDiv = styled.div`
   height: 100px;
@@ -176,6 +176,7 @@ class UserDashboard extends Component {
 
   render() {
     const { name, surname } = this.props.user;
+
     return (
       <StyledDiv>
         <div>

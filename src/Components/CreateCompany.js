@@ -51,25 +51,26 @@ class CreateCompany extends Component {
     clickedButton: false,
     companyName: "XD",
     workers: [
-      {
-        id: 0,
-        login: "1",
-        name: "21312",
-        password: "1",
-        position: "4",
-        salary: "23",
-        surname: "3"
-      },
-      {
-        id: 1,
-        login: "2",
-        name: "2",
-        password: "2",
-        position: "4",
-        salary: "23",
-        surname: "3",
-        dates: {}
-      }
+      // {
+      //   id: 0,
+      //   login: "1",
+      //   name: "21312",
+      //   password: "1",
+      //   position: "4",
+      //   salary: "23",
+      //   surname: "3",
+      //   dates: {}
+      // },
+      // {
+      //   id: 1,
+      //   login: "2",
+      //   name: "2",
+      //   password: "2",
+      //   position: "4",
+      //   salary: "23",
+      //   surname: "3",
+      //   dates: {}
+      // }
     ],
     isCompanyNameEmpty: false
   };
@@ -86,7 +87,8 @@ class CreateCompany extends Component {
       salary,
       position,
       login,
-      password
+      password,
+      dates: []
     });
   };
   showWorkers = () => {

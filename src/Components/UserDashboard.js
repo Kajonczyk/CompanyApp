@@ -7,10 +7,11 @@ import { Cancel } from "styled-icons/typicons/Cancel";
 import { withRouter } from "react-router";
 import SubmitButton from "../Components/SubmitButton";
 import UserEventDasboard from "../Components/UserEventDasboard";
+import PreviewWorkersData from "../Components/PreviewWorkersData";
 
 const StyledAttendanceList = styled.div`
   width: 95%;
-  background-color: ${({ theme }) => theme.white};
+  background-color: ${({ theme }) => theme.red};
   margin-top: 50px;
   height: 150px;
 `;
@@ -185,7 +186,13 @@ class UserDashboard extends Component {
           </p>
         </div>
 
-        <StyledAttendanceList />
+        <StyledAttendanceList>
+          <PreviewWorkersData
+            user={this.props.user}
+            userDates={this.props.user.dates}
+            date={this.state.date}
+          />
+        </StyledAttendanceList>
 
         <StyledAttendanceDiv>
           <StyledCheckIn onClick={() => this.handleCheckClick("in")}>

@@ -112,12 +112,12 @@ class BossDashboard extends Component {
       const text = this.props.workers[this.state.selectValue].dates[
         this.state.date
       ];
-      console.log(
-        this.props.workers[this.state.selectValue].dates[this.state.date],
-        Boolean(
-          this.props.workers[this.state.selectValue].dates[this.state.date]
-        )
-      );
+      // console.log(
+      //   this.props.workers[this.state.selectValue].dates[this.state.date],
+      //   Boolean(
+      //     this.props.workers[this.state.selectValue].dates[this.state.date]
+      //   )
+      // );
       this.updateText("in", text);
     }, 500);
 
@@ -205,7 +205,7 @@ class BossDashboard extends Component {
         </WorkerPrevievWrapper>
         <EventDashboard handleCreateEvent={this.props.handleCreateEvent} />
         <div>Amount of Employees: {this.props.workers.length}</div>
-        <div>Working: {this.props.workers.length}</div>
+        <div>Working: {this.props.workers.dates}</div>
         <div>Absent: {this.props.workers.length}</div>
         <SubmitButton onClick={this.handleLogOut}>Log Out</SubmitButton>
       </StyledDiv>

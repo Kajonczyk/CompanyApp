@@ -152,8 +152,7 @@ class StartScreen extends Component {
       salary,
       position,
       login,
-      password,
-      dates: {}
+      password
     });
     console.log("CREATUJE");
   };
@@ -191,20 +190,21 @@ class StartScreen extends Component {
   //
   handleUserDateChange = (index, date, signIn, signOut) => {
     const workers = [...this.state.workers];
-    console.log(workers[index]);
-    console.log([...this.state.workers]);
-    console.log(typeof workers);
-    console.log(workers);
+    // console.log(workers[index]);
+    // console.log([...this.state.workers]);
+    // console.log(typeof workers);
+    // console.log(workers);
     const d = new Date();
     d.toLocaleString().substr(0, 9);
     const inputDate = {
-      [date]: {
-        signIn: signIn,
-        signOut: signOut
-      }
+      date: date,
+      signIn: signIn,
+      signOut: signOut
     };
-    return Object.assign(workers[index], { dates: inputDate });
-    console.log(workers[1]);
+
+    return workers[index].dates.push(inputDate);
+
+    // return Object.assign(workers[index], { dates: inputDate });
 
     // return inputDate;
   };

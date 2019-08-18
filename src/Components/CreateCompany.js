@@ -19,27 +19,7 @@ const StyledSubmitButton = styled(SubmitButton)`
   background-color: ${({ theme }) => theme.white};
   box-shadow: 0px 0px 2px ${({ theme }) => theme.white};
 `;
-// {
-//   id: 1,
-//   name: "Kaj",
-//   surname: "Kajonczyk",
-//   salary: "3000",
-//   position: "Frontend"
-// },
-// {
-//   id: 2,
-//   name: "Kaj",
-//   surname: "Kajonczyk",
-//   salary: "3000",
-//   position: "Frontend"
-// },
-// {
-//   id: 3,
-//   name: "Kaj",
-//   surname: "Kajonczyk",
-//   salary: "3000",
-//   position: "Frontend"
-// }
+
 const StyledWorkersList = styled.div`
   width: 95%;
   background-color: ${({ theme }) => theme.white};
@@ -50,28 +30,7 @@ class CreateCompany extends Component {
   state = {
     clickedButton: false,
     companyName: "XD",
-    workers: [
-      // {
-      //   id: 0,
-      //   login: "1",
-      //   name: "21312",
-      //   password: "1",
-      //   position: "4",
-      //   salary: "23",
-      //   surname: "3",
-      //   dates: {}
-      // },
-      // {
-      //   id: 1,
-      //   login: "2",
-      //   name: "2",
-      //   password: "2",
-      //   position: "4",
-      //   salary: "23",
-      //   surname: "3",
-      //   dates: {}
-      // }
-    ],
+    workers: [],
     isCompanyNameEmpty: false
   };
   handleClick = () => {

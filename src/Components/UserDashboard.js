@@ -112,9 +112,7 @@ class UserDashboard extends Component {
     console.log(history.location);
     console.log(this.props);
   }
-  handleTickClick = type => {
-    // console.log("tick");
-  };
+
   handleButtonClick = (type, direction) => {
     //d.toLocaleString().substr(0,9)
     if (type === "cross") {
@@ -140,13 +138,7 @@ class UserDashboard extends Component {
           isCheckedIn: !this.state.isCheckedIn,
           checkInTime: d.toISOString().substr(11, 8)
         });
-        const {
-          handleUserDateChange,
-          user,
-          date,
-          checkInClicked,
-          checkOutClicked
-        } = this.props;
+
         console.log(this.state.checkInTime);
         return setTimeout(() => {
           this.props.handleUserDateChange(
@@ -247,5 +239,10 @@ class UserDashboard extends Component {
     );
   }
 }
-
+UserDashboard.defaultProps = {
+  user: {
+    name: "",
+    surname: ""
+  }
+};
 export default withRouter(UserDashboard);

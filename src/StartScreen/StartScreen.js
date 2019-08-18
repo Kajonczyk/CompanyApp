@@ -55,26 +55,7 @@ class StartScreen extends Component {
     loginForm: "",
     passwordForm: "",
     userIndex: "",
-    workers: [
-      // {
-      //   id: 0,
-      //   login: "12330",
-      //   name: "123",
-      //   password: "03123",
-      //   position: "65",
-      //   salary: "4",
-      //   surname: "3"
-      // },
-      // {
-      //   id: 1,
-      //   login: "938ui5",
-      //   name: "9035",
-      //   password: "938xd",
-      //   position: "65",
-      //   salary: "4",
-      //   surname: "3"
-      // }
-    ],
+    workers: [],
     id: 0,
     idEditedElement: 0,
     globalEvents: []
@@ -158,10 +139,6 @@ class StartScreen extends Component {
   };
 
   handleDeleteUser = e => {
-    // const index = this.state.workers.findIndex(index =>
-    //   this.workerIndex(this.workerIndex)
-    // );
-    // this.workerIndex(index);
     const workers = [...this.state.workers];
 
     const mainDiv = e.target.parentNode.parentNode;
@@ -190,10 +167,7 @@ class StartScreen extends Component {
   //
   handleUserDateChange = (index, date, signIn, signOut) => {
     const workers = [...this.state.workers];
-    // console.log(workers[index]);
-    // console.log([...this.state.workers]);
-    // console.log(typeof workers);
-    // console.log(workers);
+
     const d = new Date();
     d.toLocaleString().substr(0, 9);
     const inputDate = {

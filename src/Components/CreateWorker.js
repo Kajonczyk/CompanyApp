@@ -12,7 +12,7 @@ const StyledDivWrapper = styled(StyledDiv)`
 `;
 class CreateWorker extends Component {
   state = {
-    id: 0,
+    id: this.props.id,
     name: "",
     surname: "",
     salary: "",
@@ -20,12 +20,12 @@ class CreateWorker extends Component {
     login: "",
     password: ""
   };
-  // handleIdChange = () => {
-  //   console.log(this.state.id);
-  //   return this.setState({
-  //     id: this.state.id + 1
-  //   });
-  // };
+  handleIdChange = () => {
+    this.setState(prevState => ({
+      id: this.state.id + 1
+    }));
+  };
+
   handleChange = e => {
     const id = e.target.id;
     let value = e.target.value;
@@ -37,6 +37,8 @@ class CreateWorker extends Component {
   handleSubmit = () => {
     const { id, name, surname, salary, position } = this.state;
     this.props.handleIdChange();
+    this.handleIdChange();
+    console.log(this.state.id);
 
     let loginName = name;
     let loginSurname = surname;
@@ -44,7 +46,6 @@ class CreateWorker extends Component {
     let password = id + loginSurname + loginName;
     this.props.create(id, name, surname, salary, position, login, password);
     this.setState({
-      id: this.props.id,
       name: "",
       surname: "",
       salary: "",
@@ -119,40 +120,3 @@ class CreateWorker extends Component {
   }
 }
 export default CreateWorker;
-
-// const CreateWorker = ({ activeCreation }) => {
-//   state={
-
-//   }
-//   return (
-//     <StyledDivWrapper activeCreation={activeCreation}>
-//       <div>asdsad</div>
-//       <form>
-//         <label htmlFor="name">
-//           Name
-//           <br />
-//           <Input type="text" placeholder="Name" id="name" />
-//         </label>
-//         <br />
-//         <label htmlFor="surname">
-//           Surname
-//           <br />
-//           <Input type="text" placeholder="Surname" id="surname" />
-//         </label>
-//         <br />
-//         <label htmlFor="salary">
-//           Salary
-//           <br />
-//           <Input type="text" placeholder="Salary" id="salary" />
-//         </label>
-//         <br />
-//         <label htmlFor="position">
-//           Position
-//           <br />
-//           <Input type="text" placeholder="Position" id="position" />
-//         </label>
-//         <br />
-//       </form>
-//     </StyledDivWrapper>
-//   );
-// };

@@ -96,10 +96,8 @@ class BossDashboard extends Component {
   };
   updateText = (type, text) => {
     if (type === "in") {
-      // return this.props.workers[this.state.selectValue].dates.signIn;
       return text;
     } else if (type === "out") {
-      // return this.props.workers[this.state.selectValue].dates.signOut;
       return text;
     }
   };
@@ -112,17 +110,9 @@ class BossDashboard extends Component {
       const text = this.props.workers[this.state.selectValue].dates[
         this.state.date
       ];
-      // console.log(
-      //   this.props.workers[this.state.selectValue].dates[this.state.date],
-      //   Boolean(
-      //     this.props.workers[this.state.selectValue].dates[this.state.date]
-      //   )
-      // );
+
       this.updateText("in", text);
     }, 500);
-
-    // console.log(this.props.workers);
-    // console.log(this.props.workers[this.state.selectValue]);
   };
 
   render() {
@@ -175,6 +165,7 @@ class BossDashboard extends Component {
           </select>
           <StyledWrapper>
             <StyledWorkerPreview>
+              {/* It ain't working for now */}
               {this.state.selectValue &&
               Boolean(
                 this.props.workers[this.state.selectValue].dates[
@@ -187,9 +178,6 @@ class BossDashboard extends Component {
                 : "Data not set"}
             </StyledWorkerPreview>
             <StyledWorkerPreview>
-              {/* {this.state.selectValue
-                ? [this.state.selectValue].dates.signOut
-                : null} */}
               {this.state.selectValue &&
               Boolean(
                 this.props.workers[this.state.selectValue].dates[

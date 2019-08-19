@@ -112,11 +112,13 @@ class StartScreen extends Component {
         passwordForm === workers[i].password
       ) {
         console.log("Zalogowano jako user");
+        localStorage.setItem("userToken", "kl245j6()$!#*%#!");
         this.setState({
           userIndex: i
         });
         return this.props.history.push("/user");
       } else if (loginForm === "boss" && passwordForm === "boss") {
+        // localStorage.setItem("bossToken", "kl245j6()$!#*%#!");
         return this.props.history.push("/boss");
       }
     });
@@ -126,6 +128,7 @@ class StartScreen extends Component {
   //
   //
   createWorker = (id, name, surname, salary, position, login, password) => {
+    const dates = [];
     this.state.workers.push({
       id,
       name,
@@ -133,7 +136,8 @@ class StartScreen extends Component {
       salary,
       position,
       login,
-      password
+      password,
+      dates
     });
     console.log("CREATUJE");
   };

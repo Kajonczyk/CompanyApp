@@ -67,7 +67,8 @@ class BossDashboard extends Component {
     isUserBeingChanged: false,
     workerIdPreview: null,
     selectValue: 0,
-    date: null
+    date: null,
+    auth: false
   };
 
   handleClick = () => {
@@ -116,87 +117,93 @@ class BossDashboard extends Component {
   };
 
   render() {
+    // if (localStorage.getItem("bossToken") === "") {
+    //   this.setState({
+    //     auth: true
+    //   });
     return (
-      <StyledDiv>
-        <div>siema</div>
-        <StyledWorkersList>
-          {this.props.workers.map(worker => (
-            <WorkersList
-              key={worker.id}
-              name={worker.name}
-              surname={worker.surname}
-              salary={worker.salary}
-              position={worker.position}
-              isVisible={true}
-              deleteUser={this.props.deleteUser}
-              handleEditUser={this.props.handleEditUser}
-              handleUserChange={this.handleUserChange}
-            />
-          ))}
-        </StyledWorkersList>
-        <SubmitButton onClick={this.handleClick}>Add+</SubmitButton>
-        {this.state.isUserBeingCreated ? (
-          <CreateWorker
-            create={this.props.create}
-            close={this.handleClick}
-            id={this.props.id}
-            handleIdChange={this.props.handleIdChange}
-          />
-        ) : null}
-        {this.state.isUserBeingChanged ? (
-          <ChangeWorkersData
-            handleUserDataChange={this.props.handleUserDataChange}
-            idEditedElement={this.props.idEditedElement}
-            handleForceUpdate={this.handleForceUpdate}
-          />
-        ) : null}
-
-        <WorkerPrevievWrapper>
-          <StyledParagraph>Employees Preview</StyledParagraph>
-          <select onChange={this.handleSelectChange}>
-            <option disabled={true} selected={true}>
-              Choose Employee
-            </option>
+      <>
+        <StyledDiv>
+          <div>siema</div>
+          <StyledWorkersList>
             {this.props.workers.map(worker => (
-              <option value={worker.id}>
-                {worker.name} {worker.surname}
-              </option>
+              <WorkersList
+                key={worker.id}
+                name={worker.name}
+                surname={worker.surname}
+                salary={worker.salary}
+                position={worker.position}
+                isVisible={true}
+                deleteUser={this.props.deleteUser}
+                handleEditUser={this.props.handleEditUser}
+                handleUserChange={this.handleUserChange}
+              />
             ))}
-          </select>
-          <StyledWrapper>
-            <StyledWorkerPreview>
-              {/* It ain't working for now */}
-              {this.state.selectValue &&
-              Boolean(
-                this.props.workers[this.state.selectValue].dates[
-                  this.state.date
-                ]
-              )
-                ? this.props.workers[this.state.selectValue].dates[
+          </StyledWorkersList>
+          <SubmitButton onClick={this.handleClick}>Add+</SubmitButton>
+          {this.state.isUserBeingCreated ? (
+            <CreateWorker
+              create={this.props.create}
+              close={this.handleClick}
+              id={this.props.id}
+              handleIdChange={this.props.handleIdChange}
+            />
+          ) : null}
+          {this.state.isUserBeingChanged ? (
+            <ChangeWorkersData
+              handleUserDataChange={this.props.handleUserDataChange}
+              idEditedElement={this.props.idEditedElement}
+              handleForceUpdate={this.handleForceUpdate}
+            />
+          ) : null}
+
+          <WorkerPrevievWrapper>
+            <StyledParagraph>Employees Preview</StyledParagraph>
+            <select onChange={this.handleSelectChange}>
+              <option disabled={true} selected={true}>
+                Choose Employee
+              </option>
+              {this.props.workers.map(worker => (
+                <option value={worker.id}>
+                  {worker.name} {worker.surname}
+                </option>
+              ))}
+            </select>
+            <StyledWrapper>
+              <StyledWorkerPreview>
+                {/* It ain't working for now */}
+                {this.state.selectValue &&
+                Boolean(
+                  this.props.workers[this.state.selectValue].dates[
                     this.state.date
-                  ].signIn
-                : "Data not set"}
-            </StyledWorkerPreview>
-            <StyledWorkerPreview>
-              {this.state.selectValue &&
-              Boolean(
-                this.props.workers[this.state.selectValue].dates[
-                  this.state.date
-                ]
-              )
-                ? this.props.workers[this.state.selectValue].dates[
+                  ]
+                )
+                  ? this.props.workers[this.state.selectValue].dates[
+                      this.state.date
+                    ].signIn
+                  : "Data not set"}
+              </StyledWorkerPreview>
+              <StyledWorkerPreview>
+                {this.state.selectValue &&
+                Boolean(
+                  this.props.workers[this.state.selectValue].dates[
                     this.state.date
-                  ].signOut
-                : "Data not set"}
-            </StyledWorkerPreview>
-          </StyledWrapper>
-        </WorkerPrevievWrapper>
-        <EventDashboard handleCreateEvent={this.props.handleCreateEvent} />
-        <div>Amount of Employees: {this.props.workers.length}</div>
-        <div>Working: {this.props.workers.dates}</div>
-        <div>Absent: {this.props.workers.length}</div>
-        <SubmitButton onClick={this.handleLogOut}>Log Out</SubmitButton>
-      </StyledDiv>
+                  ]
+                )
+                  ? this.props.workers[this.state.selectValue].dates[
+                      this.state.date
+                    ].signOut
+                  : "Data not set"}
+              </StyledWorkerPreview>
+            </StyledWrapper>
+          </WorkerPrevievWrapper>
+          <EventDashboard handleCreateEvent={this.props.handleCreateEvent} />
+          <div>Amount of Employees: {this.props.workers.length}</div>
+          <div>Working: {this.props.workers.dates}</div>
+          <div>Absent: {this.props.workers.length}</div>
+          <SubmitButton onClick={this.handleLogOut}>Log Out</SubmitButton>
+        </StyledDiv>
+      </>
     );
   }
 }

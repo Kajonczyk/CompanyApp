@@ -118,7 +118,7 @@ class StartScreen extends Component {
         });
         return this.props.history.push("/user");
       } else if (loginForm === "boss" && passwordForm === "boss") {
-        // localStorage.setItem("bossToken", "kl245j6()$!#*%#!");
+        localStorage.setItem("bossToken", "kl^&$*!asd0-9758];245j6()$!#*%#!");
         return this.props.history.push("/boss");
       }
     });
@@ -250,6 +250,7 @@ class StartScreen extends Component {
                 />
               )}
             />
+            <Route render={() => <div>How did you get there boy?</div>} />
           </Switch>
         </Router>
         {/*  */}

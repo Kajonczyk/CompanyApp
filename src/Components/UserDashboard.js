@@ -67,16 +67,24 @@ const StyledLogOutButton = styled(SubmitButton)`
   font-size: ${({ theme }) => theme.font.size.xs};
 `;
 class UserDashboard extends Component {
-  state = {
-    date: "",
-    checkInTime: "",
-    checkOutTime: "",
-    checkInClicked: false,
-    checkOutClicked: false,
-    isCheckedIn: false,
-    isCheckedOut: false,
-    auth: true
-  };
+  constructor() {
+    super();
+
+    this.state = {
+      date: "",
+      checkInTime: "",
+      checkOutTime: "",
+      checkInClicked: false,
+      checkOutClicked: false,
+      isCheckedIn: false,
+      isCheckedOut: false,
+      auth: true
+    };
+    const token = localStorage.getItem("userToken");
+    if (token === null) {
+      console.log("nullon");
+    } else this.setState({ auth: true });
+  }
 
   handleData = () => {
     const d = new Date();
@@ -85,6 +93,7 @@ class UserDashboard extends Component {
     });
   };
   handleLogOut = () => {
+    localStorage.removeItem("userToken");
     this.props.history.push("/");
   };
   handleCheckClick = status => {
@@ -171,11 +180,14 @@ class UserDashboard extends Component {
 
   render() {
     const { name, surname } = this.props.user;
-    if (localStorage.getItem("userToken") !== null) {
-      this.setState({
-        auth: true
-      });
-      this.forceUpdate();
+    // if (localStorage.getItem("userToken") !== null) {
+    //   this.setState({
+    //     auth: true
+    //   });
+    //   this.forceUpdate();
+    // }
+    if (localStorage.getItem("userToken") == null) {
+      return <Redirect to="/" />;
     }
     return (
       <>

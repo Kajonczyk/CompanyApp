@@ -5,6 +5,7 @@ import SubmitButton from "../Components/SubmitButton";
 import CreateWorker from "../Components/CreateWorker";
 import ChangeWorkersData from "../Components/ChangeWorkersData";
 import EventDashboard from "../Components/EventDashboard";
+import { Redirect } from "react-router-dom";
 
 import { withRouter } from "react-router";
 const StyledDiv = styled.div`
@@ -61,15 +62,24 @@ const StyledWorkerPreview = styled.div`
 `;
 
 class BossDashboard extends Component {
-  state = {
-    isUserBeingCreated: false,
-    clickedButton: false,
-    isUserBeingChanged: false,
-    workerIdPreview: null,
-    selectValue: 0,
-    date: null,
-    auth: false
-  };
+  constructor() {
+    super();
+    this.state = {
+      isUserBeingCreated: false,
+      clickedButton: false,
+      isUserBeingChanged: false,
+      workerIdPreview: null,
+      selectValue: 0,
+      date: null,
+      auth: false,
+      some: ""
+    };
+
+    const token = localStorage.getItem("bossToken");
+    if (token === null) {
+      console.log("nullon");
+    } else this.setState({ auth: true });
+  }
 
   handleClick = () => {
     this.setState({
@@ -84,10 +94,11 @@ class BossDashboard extends Component {
     });
   }
   handleLogOut = () => {
+    localStorage.removeItem("bossToken");
     this.props.history.push("/");
   };
   handleForceUpdate = () => {
-    this.forceUpdate();
+    // this.forceUpdate();
   };
   handleUserChange = () => {
     this.setState({
@@ -117,10 +128,9 @@ class BossDashboard extends Component {
   };
 
   render() {
-    // if (localStorage.getItem("bossToken") === "") {
-    //   this.setState({
-    //     auth: true
-    //   });
+    if (localStorage.getItem("bossToken") == null) {
+      return <Redirect to="/" />;
+    }
     return (
       <>
         <StyledDiv>
@@ -164,7 +174,7 @@ class BossDashboard extends Component {
                 Choose Employee
               </option>
               {this.props.workers.map(worker => (
-                <option value={worker.id}>
+                <option value={worker.id} key={worker.id}>
                   {worker.name} {worker.surname}
                 </option>
               ))}

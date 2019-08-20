@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import Input from "../Components/InputField";
+import * as validator from "../Components/Validate";
+
 const StyledWrapper = styled.div`
   height: 50vh;
   width: 100%;
@@ -11,7 +13,13 @@ class ChangeWorkersData extends Component {
     name: "",
     surname: "",
     salary: "",
-    position: ""
+    position: "",
+    errors: {
+      nameError: false,
+      surnameError: false,
+      salaryError: false,
+      positionError: false
+    }
   };
   handleChange = e => {
     const id = e.target.id;
@@ -21,9 +29,34 @@ class ChangeWorkersData extends Component {
       [id]: value
     });
   };
+  validateFunction = () => {
+    const { name, surname, salary, position, errors } = this.state;
+    const self = this;
+    if (
+      validator.ValidateWorkerData(
+        name,
+        surname,
+        salary,
+        position,
+        errors,
+        self
+      )
+    ) {
+      this.props.handleUserDataChange(
+        this.props.idEditedElement,
+        name,
+        surname,
+        salary,
+        position
+      );
+    } else {
+      console.log("XD");
+    }
+  };
 
   render() {
-    const { name, surname, salary, position } = this.state;
+    const { name, surname, salary, position, errors } = this.state;
+
     return (
       <StyledWrapper>
         <div>XD</div>
@@ -31,19 +64,7 @@ class ChangeWorkersData extends Component {
         <Input id="surname" value={surname} onChange={this.handleChange} />
         <Input id="salary" value={salary} onChange={this.handleChange} />
         <Input id="position" value={position} onChange={this.handleChange} />
-        <button
-          onClick={() =>
-            this.props.handleUserDataChange(
-              this.props.idEditedElement,
-              name,
-              surname,
-              salary,
-              position
-            )
-          }
-        >
-          Submit
-        </button>
+        <button onClick={() => this.validateFunction()}>Submit</button>
       </StyledWrapper>
     );
   }

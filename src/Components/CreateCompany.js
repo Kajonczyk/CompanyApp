@@ -5,6 +5,7 @@ import SubmitButton from "../Components/SubmitButton";
 import StyledDiv from "../Components/FullHeWiDiv";
 import CreateWorker from "../Components/CreateWorker";
 import WorkersList from "../Components/WorkersList";
+import * as validator from "../Components/Validate";
 
 const StyledInput = styled(Input)`
   border-bottom: 2px solid ${({ theme }) => theme.white};
@@ -26,12 +27,17 @@ const StyledWorkersList = styled.div`
   margin-top: 50px;
   height: 450px;
 `;
+const StyledError = styled.p`
+  color: red;
+  margin: 0px;
+`;
 class CreateCompany extends Component {
   state = {
     clickedButton: false,
     companyName: "XD",
     workers: [],
-    isCompanyNameEmpty: false
+    isCompanyNameEmpty: false,
+    companyError: false
   };
   handleClick = () => {
     this.setState({
@@ -60,13 +66,17 @@ class CreateCompany extends Component {
   };
   handleSubmit = () => {
     const { companyName, isCompanyNameEmpty, workers } = this.state;
-    if (companyName.length > 0) {
+    const self = this;
+    if (validator.ValidateCompany(companyName, workers, self)) {
       this.props.activeMenu();
       this.props.setName(companyName);
       this.props.setWorkers(workers);
+      this.setState({
+        companyError: false
+      });
     } else {
       this.setState({
-        isCompanyNameEmpty: !isCompanyNameEmpty
+        companyError: true
       });
     }
   };
@@ -118,6 +128,7 @@ class CreateCompany extends Component {
             id={this.props.id}
           />
         ) : null}
+        {this.state.companyError ? <StyledError>12312</StyledError> : null}
         <StyledSubmitButton onClick={this.handleSubmit}>
           Create
         </StyledSubmitButton>

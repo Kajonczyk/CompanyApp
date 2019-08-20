@@ -10,6 +10,7 @@ import Input from "../Components/InputField";
 import history from "../Components/history";
 import BossDashboard from "../Components/BossDashboard";
 import UserDashboard from "../Components/UserDashboard";
+import * as validator from "../Components/Validate";
 const StyledSection = styled.section`
   display: flex;
   text-align: center;
@@ -47,6 +48,9 @@ const StyledCompanyButton = styled(SubmitButton)`
   background-color: ${({ theme }) => theme.white};
   box-shadow: 0px 0px 2px ${({ theme }) => theme.white};
 `;
+const StyledError = styled.p`
+  color: red;
+`;
 class StartScreen extends Component {
   state = {
     isCompany: false,
@@ -58,6 +62,7 @@ class StartScreen extends Component {
     workers: [],
     id: 0,
     idEditedElement: 0,
+    loginError: false,
     globalEvents: []
   };
 
@@ -78,7 +83,7 @@ class StartScreen extends Component {
       companyName: name
     });
   };
-  handleSetWokers = args => {
+  handleSetWorkers = args => {
     this.setState({
       workers: args
     });
@@ -114,12 +119,17 @@ class StartScreen extends Component {
         console.log("Zalogowano jako user");
         localStorage.setItem("userToken", "kl245j6()$!#*%#!");
         this.setState({
-          userIndex: i
+          userIndex: i,
+          loginError: false
         });
         return this.props.history.push("/user");
       } else if (loginForm === "boss" && passwordForm === "boss") {
         localStorage.setItem("bossToken", "kl^&$*!asd0-9758];245j6()$!#*%#!");
         return this.props.history.push("/boss");
+      } else {
+        const self = this;
+
+        return validator.ValidateLogin(this.state.loginError, self);
       }
     });
   };
@@ -267,7 +277,7 @@ class StartScreen extends Component {
             <CreateCompany
               setName={this.handleSetCompanyName}
               activeMenu={this.handleCreateCompany}
-              setWorkers={this.handleSetWokers}
+              setWorkers={this.handleSetWorkers}
               create={this.createWorker}
               handleIdChange={this.handleIdChange}
               id={this.state.id}
@@ -297,6 +307,9 @@ class StartScreen extends Component {
               name="passwordForm"
               onChange={this.handleChange}
             />
+            {this.state.loginError ? (
+              <StyledError>Wrong Data</StyledError>
+            ) : null}
 
             <SubmitButton onClick={this.handleSubmit}>Login</SubmitButton>
           </form>

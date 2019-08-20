@@ -3,6 +3,7 @@ import styled from "styled-components";
 import StyledDiv from "../Components/FullHeWiDiv";
 import Input from "../Components/InputField";
 import SubmitButton from "../Components/SubmitButton";
+import * as validator from "../Components/Validate";
 
 const StyledDivWrapper = styled(StyledDiv)`
   background-color: ${({ theme }) => theme.white}
@@ -18,7 +19,13 @@ class CreateWorker extends Component {
     salary: "",
     position: "",
     login: "",
-    password: ""
+    password: "",
+    errors: {
+      nameError: false,
+      surnameError: false,
+      salaryError: false,
+      positionError: false
+    }
   };
   handleIdChange = () => {
     this.setState(prevState => ({
@@ -35,22 +42,38 @@ class CreateWorker extends Component {
     console.log(`${id} is : ${this.state[id]}`);
   };
   handleSubmit = () => {
-    const { id, name, surname, salary, position } = this.state;
-    this.props.handleIdChange();
-    this.handleIdChange();
+    const { id, name, surname, salary, position, errors } = this.state;
+    const self = this;
+
     console.log(this.state.id);
 
     let loginName = name;
     let loginSurname = surname;
     let login = loginName + loginSurname + id;
     let password = id + loginSurname + loginName;
-    this.props.create(id, name, surname, salary, position, login, password);
-    this.setState({
-      name: "",
-      surname: "",
-      salary: "",
-      position: ""
-    });
+    //poi
+    if (
+      validator.ValidateWorkerData(
+        name,
+        surname,
+        salary,
+        position,
+        errors,
+        self
+      )
+    ) {
+      this.props.handleIdChange();
+      this.handleIdChange();
+      this.props.create(id, name, surname, salary, position, login, password);
+      this.setState({
+        name: "",
+        surname: "",
+        salary: "",
+        position: ""
+      });
+    } else {
+      console.log("Wrong data");
+    }
   };
   render() {
     const { name, surname, salary, position } = this.state;

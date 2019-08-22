@@ -6,7 +6,7 @@ const StyledDiv = styled.div`
   display: flex;
   color: ${({ theme }) => theme.green};
   justify-content: space-between;
-  text-align: center;
+  text-align: left;
 `;
 const DeleteButton = styled.div`
   width: 30px;
@@ -23,6 +23,10 @@ const StyledBin = styled.button`
   &:hover {
     cursor: pointer;
   }
+`;
+const StyledP = styled.p`
+  width: 25%;
+  overflow: hidden;
 `;
 const StyledPencil = styled(Pencil)`
   height: 30px;
@@ -49,10 +53,10 @@ const WorkersList = ({
 
   return (
     <StyledDiv>
-      <p>{name}</p>
-      <p>{surname}</p>
-      <p>{salary}</p>
-      <p>{position}</p>
+      <StyledP>{name}</StyledP>
+      <StyledP>{surname}</StyledP>
+      <StyledP>{salary}</StyledP>
+      <StyledP>{position}</StyledP>
       {isVisible ? (
         <>
           <div>

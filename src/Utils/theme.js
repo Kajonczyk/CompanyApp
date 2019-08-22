@@ -1,13 +1,13 @@
 const theme = {
-  white: "#FFFFF0",
-  green: "#00bf5d",
-  test: "#FF3333",
+  white: "#f6f7d7",
+  green: "#3ec1d3",
+  darkBlue: "#1b57cf",
   red: "#f23a3a",
   font: {
     size: {
       xs: ".8rem",
       s: "1.1rem",
-      m: "2.3rem",
+      m: "1.6rem",
       xl: "3.1rem",
       generateHeading: "1rem",
       generateDesc: ".9rem"

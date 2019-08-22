@@ -9,6 +9,10 @@ const SubmitButton = styled.button`
   display: block;
   margin: 15px auto;
   color: ${({ theme }) => theme.green};
+  transition: box-shadow 0.5s;
+  &:hover {
+    box-shadow: 0px 2px 3px ${({ theme }) => theme.green};
+  }
 `;
 
 export default SubmitButton;

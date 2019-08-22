@@ -16,17 +16,44 @@ const StyledInput = styled(Input)`
     border-bottom: 2px solid ${({ theme }) => theme.red};
   }
 `;
+const Wrapper = styled(StyledDiv)`
+  justify-content: flex-end;
+  min-height: 100vh;
+`;
+const CreateCompanyText = styled.p`
+  font-size: ${({ theme }) => theme.font.size.m};
+`;
 const StyledSubmitButton = styled(SubmitButton)`
   background-color: ${({ theme }) => theme.white};
   box-shadow: 0px 0px 2px ${({ theme }) => theme.white};
+`;
+const Breaker = styled.div`
+  padding: 20px;
+`;
+const BreakerSmall = styled.div`
+  padding: 5px;
 `;
 
 const StyledWorkersList = styled.div`
   width: 95%;
   background-color: ${({ theme }) => theme.white};
-  margin-top: 50px;
   height: 450px;
+  text-align: center;
+  position: relative;
+  margin-top: 20px;
 `;
+const StyledListDescription = styled.div`
+  width: 95%;
+  height: 40px;
+  display: flex;
+  position: absolute;
+  top: -25px;
+`;
+const StyledListDescriptionP = styled.p`
+color: ${({ theme }) => theme.white};
+font-size:color: ${({ theme }) => theme.font.size.s};
+width:25%;`;
+
 const StyledError = styled.p`
   color: red;
   margin: 0px;
@@ -34,7 +61,7 @@ const StyledError = styled.p`
 class CreateCompany extends Component {
   state = {
     clickedButton: false,
-    companyName: "XD",
+    companyName: "",
     workers: [],
     isCompanyNameEmpty: false,
     companyError: false
@@ -89,7 +116,8 @@ class CreateCompany extends Component {
   render() {
     return (
       <StyledDiv>
-        <br />
+        <BreakerSmall />
+        <CreateCompanyText>Create Company</CreateCompanyText>
         <form>
           <label htmlFor="companyName">
             Company Name <br />
@@ -104,7 +132,14 @@ class CreateCompany extends Component {
             />
           </label>
         </form>
+
         <StyledWorkersList>
+          <StyledListDescription>
+            <StyledListDescriptionP>Name</StyledListDescriptionP>
+            <StyledListDescriptionP>Name</StyledListDescriptionP>
+            <StyledListDescriptionP>Name</StyledListDescriptionP>
+            <StyledListDescriptionP>Name</StyledListDescriptionP>
+          </StyledListDescription>
           {this.state.workers.map(worker => (
             <WorkersList
               key={worker.id}
@@ -129,6 +164,8 @@ class CreateCompany extends Component {
           />
         ) : null}
         {this.state.companyError ? <StyledError>12312</StyledError> : null}
+        <BreakerSmall />
+
         <StyledSubmitButton onClick={this.handleSubmit}>
           Create
         </StyledSubmitButton>

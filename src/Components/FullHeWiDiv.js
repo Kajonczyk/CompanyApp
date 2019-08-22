@@ -1,7 +1,7 @@
 import styled from "styled-components";
 const StyledDiv = styled.div`
-  min-height: 100%;
-  position: fixed;
+  height: 100%;
+  position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);

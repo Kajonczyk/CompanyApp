@@ -60,3 +60,20 @@ export const ValidateWorkerData = (
     });
   }
 };
+export const ValidateGlobalEvent = (value, date, self) => {
+  console.log(value);
+  let valueError = false;
+  let dateError = false;
+  console.log(date);
+  if (date !== "" && value.length >= 5) {
+    return true;
+  }
+  if (date === "") dateError = true;
+  if (value.length < 5) valueError = true;
+  self.setState({
+    errors: {
+      dateError_: dateError,
+      valueError_: valueError
+    }
+  });
+};

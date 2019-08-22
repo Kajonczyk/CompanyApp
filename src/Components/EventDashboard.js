@@ -1,11 +1,16 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import SubmitButton from "../Components/SubmitButton";
+import * as validator from "../Components/Validate";
 
 class EventDashboard extends Component {
   state = {
     value: "",
-    date: ""
+    date: "",
+    errors: {
+      dateError_: false,
+      valueError_: false
+    }
   };
   handleChange = (e, type) => {
     let value = e.target.value;
@@ -23,6 +28,20 @@ class EventDashboard extends Component {
     }
     console.log(type);
   };
+  handleCreateEvent_ = () => {
+    const { value, date } = this.state;
+    const self = this;
+    this.setState({
+      errors: {
+        dateError_: false,
+        valueError_: false
+      }
+    });
+
+    if (validator.ValidateGlobalEvent(value, date, self)) {
+      this.props.handleCreateEvent(value, date);
+    }
+  };
 
   render() {
     const { value, date } = this.state;
@@ -39,7 +58,7 @@ class EventDashboard extends Component {
           onChange={this.handleChange}
           placeholder="Your text goes here"
         />
-        <SubmitButton onClick={() => this.props.handleCreateEvent(value, date)}>
+        <SubmitButton onClick={() => this.handleCreateEvent_()}>
           Submit
         </SubmitButton>
       </div>

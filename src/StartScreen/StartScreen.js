@@ -11,14 +11,19 @@ import history from "../Components/history";
 import BossDashboard from "../Components/BossDashboard";
 import UserDashboard from "../Components/UserDashboard";
 import * as validator from "../Components/Validate";
-const StyledSection = styled.section`
+import { Plus } from "styled-icons/boxicons-regular/Plus";
+
+const StyledSection = styled.div`
   display: flex;
   text-align: center;
   align-items: center;
   flex-direction: column;
+  position: relative;
+  justify-content: center;
+  width: 100%;
 `;
 const StyledCompanyGreeting = styled.div`
-  height: 400px;
+  height: 330px;
   width: 100%;
   background-color: ${({ theme }) => theme.green};
   display: flex;
@@ -42,6 +47,37 @@ const StyledLoginWrapper = styled(StyledCompanyGreeting)`
 const IconWrapper = styled.div`
   display: flex;
   margin-left: 19px;
+`;
+const Shadow = styled.div`
+  height: 5px;
+  width: 5px;
+  box-shadow: 0px 0px 7px ${({ theme }) => theme.green};
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+`;
+const StyledPlus = styled(Plus)`
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 1s;
+  transition-timing-function: ease;
+`;
+const StyledCompanyButton2 = styled(SubmitButton)`
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.white};
+  position: relative;
+  &:hover {
+    ${StyledPlus} {
+      transform: translate(-50%, -50%) rotateZ(180deg);
+    }
+  }
 `;
 
 const StyledCompanyButton = styled(SubmitButton)`
@@ -230,91 +266,93 @@ class StartScreen extends Component {
 
   render() {
     return (
-      <StyledSection>
-        <Router history={history}>
-          <Switch>
-            <Route exact path="/" />
-            <Route
-              path="/user"
-              render={() => (
-                <UserDashboard
-                  user={this.state.workers[this.state.userIndex]}
-                  handleUserDateChange={this.handleUserDateChange}
-                  globalEvents={this.state.globalEvents}
-                />
-              )}
-            />
-            <Route
-              path="/boss"
-              render={() => (
-                <BossDashboard
-                  workers={this.state.workers}
-                  create={this.createWorker}
-                  deleteUser={this.handleDeleteUser}
-                  handleIdChange={this.handleIdChange}
-                  id={this.state.id}
-                  handleUserDataChange={this.handleUserDataChange}
-                  handleEditUser={this.handleEditUser}
-                  idEditedElement={this.state.idEditedElement}
-                  handleCreateEvent={this.handleCreateEvent}
-                />
-              )}
-            />
-            <Route render={() => <div>How did you get there boy?</div>} />
-          </Switch>
-        </Router>
-        {/*  */}
-        {/* <UserDashboard /> */}
-        <StyledCompanyGreeting>
-          {this.state.companyName ? (
-            `Log in to  ${this.state.companyName}`
-          ) : (
-            <StyledCompanyButton onClick={this.handleCreateCompany}>
-              Create +
-            </StyledCompanyButton>
-          )}
-          {this.state.isCreateMenu ? (
-            <CreateCompany
-              setName={this.handleSetCompanyName}
-              activeMenu={this.handleCreateCompany}
-              setWorkers={this.handleSetWorkers}
-              create={this.createWorker}
-              handleIdChange={this.handleIdChange}
-              id={this.state.id}
-            />
-          ) : null}
-        </StyledCompanyGreeting>
-        <IconWrapper>
-          <StyledBreakingIcon />
-          <StyledBreakingIcon />
-        </IconWrapper>
-        <StyledLoginWrapper>
-          <form>
-            <br />
-            <Input
-              type="text"
-              placeholder="Login"
-              onChange={this.handleChange}
-              name="loginForm"
-            />
-            <br />
-            <br />
-            <br />
-            <br />
-            <Input
-              type="password"
-              placeholder="Password"
-              name="passwordForm"
-              onChange={this.handleChange}
-            />
-            {this.state.loginError ? (
-              <StyledError>Wrong Data</StyledError>
-            ) : null}
+      <>
+        <StyledSection className="SS">
+          <Router history={history}>
+            <Switch>
+              <Route exact path="/" />
+              <Route
+                path="/user"
+                render={() => (
+                  <UserDashboard
+                    user={this.state.workers[this.state.userIndex]}
+                    handleUserDateChange={this.handleUserDateChange}
+                    globalEvents={this.state.globalEvents}
+                  />
+                )}
+              />
+              <Route
+                path="/boss"
+                render={() => (
+                  <BossDashboard
+                    workers={this.state.workers}
+                    create={this.createWorker}
+                    deleteUser={this.handleDeleteUser}
+                    handleIdChange={this.handleIdChange}
+                    id={this.state.id}
+                    handleUserDataChange={this.handleUserDataChange}
+                    handleEditUser={this.handleEditUser}
+                    idEditedElement={this.state.idEditedElement}
+                    handleCreateEvent={this.handleCreateEvent}
+                  />
+                )}
+              />
+              <Route render={() => <div>How did you get there boy?</div>} />
+            </Switch>
+          </Router>
 
-            <SubmitButton onClick={this.handleSubmit}>Login</SubmitButton>
-          </form>
-        </StyledLoginWrapper>
-      </StyledSection>
+          <StyledCompanyGreeting>
+            {this.state.companyName ? (
+              `Log in to  ${this.state.companyName}`
+            ) : (
+              <StyledCompanyButton2 onClick={this.handleCreateCompany}>
+                <StyledPlus />
+                <Shadow />
+              </StyledCompanyButton2>
+            )}
+            {this.state.isCreateMenu ? (
+              <CreateCompany
+                setName={this.handleSetCompanyName}
+                activeMenu={this.handleCreateCompany}
+                setWorkers={this.handleSetWorkers}
+                create={this.createWorker}
+                handleIdChange={this.handleIdChange}
+                id={this.state.id}
+              />
+            ) : null}
+          </StyledCompanyGreeting>
+          <IconWrapper>
+            <StyledBreakingIcon />
+            <StyledBreakingIcon />
+          </IconWrapper>
+          <StyledLoginWrapper>
+            <form>
+              <br />
+              <Input
+                type="text"
+                placeholder="Login"
+                onChange={this.handleChange}
+                name="loginForm"
+              />
+              <br />
+              <br />
+              <br />
+              <br />
+              <Input
+                type="password"
+                placeholder="Password"
+                name="passwordForm"
+                onChange={this.handleChange}
+              />
+              {this.state.loginError ? (
+                <StyledError>Wrong Data</StyledError>
+              ) : null}
+
+              <SubmitButton onClick={this.handleSubmit}>Login</SubmitButton>
+            </form>
+          </StyledLoginWrapper>
+        </StyledSection>
+      </>
     );
   }
 }

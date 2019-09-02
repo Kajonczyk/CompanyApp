@@ -3,7 +3,6 @@ import { Router, Route, Switch } from "react-router-dom";
 import { withRouter } from "react-router";
 import styled from "styled-components";
 
-import { LinearScale } from "styled-icons/material/LinearScale";
 import SubmitButton from "../Components/SubmitButton";
 import CreateCompany from "../Components/CreateCompany";
 import Input from "../Components/InputField";
@@ -12,6 +11,7 @@ import BossDashboard from "../Components/BossDashboard";
 import UserDashboard from "../Components/UserDashboard";
 import * as validator from "../Components/Validate";
 import { Plus } from "styled-icons/boxicons-regular/Plus";
+import { Hourglass } from "styled-icons/boxicons-regular/Hourglass";
 
 const StyledSection = styled.div`
   display: flex;
@@ -21,9 +21,10 @@ const StyledSection = styled.div`
   position: relative;
   justify-content: center;
   width: 100%;
+  background-image: linear-gradient(0deg, #ff9069 50%, #155263 53%);
 `;
 const StyledCompanyGreeting = styled.div`
-  height: 330px;
+  height: 45vh;
   width: 100%;
   background-color: ${({ theme }) => theme.green};
   display: flex;
@@ -31,22 +32,35 @@ const StyledCompanyGreeting = styled.div`
   justify-content: center;
 `;
 
-const StyledBreakingIcon = styled(LinearScale)`
+const StyledBreakingIcon = styled(Hourglass)`
   height: 50px;
   width: 50px;
   margin-left: -19px;
-  color: ${({ theme }) => theme.green};
+  // color: ${({ theme }) => theme.green};
+  color:#ff9069;
+  &.shadow{
+    filter: drop-shadow( 3px 3px 2px #155263);
+  }
 `;
 const StyledLoginWrapper = styled(StyledCompanyGreeting)`
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: ${({ theme }) => theme.white};
-  border: 2px solid ${({ theme }) => theme.green};
+  height: 45vh;
+`;
+const StyledLoginGreeting = styled.p`
+font-size:${({ theme }) => theme.font.size.m}
+color: ${({ theme }) => theme.white}
+padding:5px 21px;
+border-bottom:2px solid;
+
 `;
 const IconWrapper = styled.div`
   display: flex;
   margin-left: 19px;
+  height: 10vh;
+  padding-top: 1vh;
 `;
 const Shadow = styled.div`
   height: 5px;
@@ -80,10 +94,6 @@ const StyledCompanyButton2 = styled(SubmitButton)`
   }
 `;
 
-const StyledCompanyButton = styled(SubmitButton)`
-  background-color: ${({ theme }) => theme.white};
-  box-shadow: 0px 0px 2px ${({ theme }) => theme.white};
-`;
 const StyledError = styled.p`
   color: red;
 `;
@@ -200,8 +210,6 @@ class StartScreen extends Component {
     });
   };
   handleEditUser = e => {
-    const workers = [...this.state.workers];
-
     const mainDiv = e.target.parentNode.parentNode;
     const index = [...mainDiv.parentElement.children].indexOf(mainDiv);
     console.log(index);
@@ -225,12 +233,9 @@ class StartScreen extends Component {
       signIn: signIn,
       signOut: signOut
     };
-
+    workers[index].dates.pop();
+    console.log(workers[index].dates);
     return workers[index].dates.push(inputDate);
-
-    // return Object.assign(workers[index], { dates: inputDate });
-
-    // return inputDate;
   };
   //
   //
@@ -303,11 +308,13 @@ class StartScreen extends Component {
 
           <StyledCompanyGreeting>
             {this.state.companyName ? (
-              `Log in to  ${this.state.companyName}`
+              <StyledLoginGreeting>
+                Log in to ${this.state.companyName}
+              </StyledLoginGreeting>
             ) : (
               <StyledCompanyButton2 onClick={this.handleCreateCompany}>
                 <StyledPlus />
-                <Shadow />
+                {/* <Shadow /> */}
               </StyledCompanyButton2>
             )}
             {this.state.isCreateMenu ? (
@@ -322,7 +329,6 @@ class StartScreen extends Component {
             ) : null}
           </StyledCompanyGreeting>
           <IconWrapper>
-            <StyledBreakingIcon />
             <StyledBreakingIcon />
           </IconWrapper>
           <StyledLoginWrapper>

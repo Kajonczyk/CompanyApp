@@ -12,7 +12,7 @@ import { Redirect } from "react-router-dom";
 
 const StyledAttendanceList = styled.div`
   width: 95%;
-  background-color: ${({ theme }) => theme.red};
+  background-color: ${({ theme }) => theme.white};
   margin-top: 50px;
   height: 150px;
 `;
@@ -37,6 +37,9 @@ const StyledCheckIn = styled.div`
 `;
 const StyledCheckOut = styled(StyledCheckIn)`
   background-color: ${({ theme }) => theme.red};
+`;
+const StyledP = styled.p`
+  color: ${({ theme }) => theme.red};
 `;
 const StyledConfirmDiv = styled.div`
   height: 36px;
@@ -193,9 +196,9 @@ class UserDashboard extends Component {
       <>
         <StyledDiv>
           <div>
-            <p>
+            <StyledP>
               You're logged as {name} {surname}
-            </p>
+            </StyledP>
           </div>
 
           <StyledAttendanceList>

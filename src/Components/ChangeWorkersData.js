@@ -55,7 +55,7 @@ class ChangeWorkersData extends Component {
   };
 
   render() {
-    const { name, surname, salary, position, errors } = this.state;
+    const { name, surname, salary, position } = this.state;
 
     return (
       <StyledWrapper>

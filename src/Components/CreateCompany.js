@@ -9,19 +9,15 @@ import * as validator from "../Components/Validate";
 
 const StyledInput = styled(Input)`
   border-bottom: 2px solid ${({ theme }) => theme.white};
+  padding: 3px;
   &::placeholder {
     color: ${({ theme }) => theme.white};
   }
-  &.red {
-    border-bottom: 2px solid ${({ theme }) => theme.red};
-  }
 `;
-const Wrapper = styled(StyledDiv)`
-  justify-content: flex-end;
-  min-height: 100vh;
-`;
+
 const CreateCompanyText = styled.p`
   font-size: ${({ theme }) => theme.font.size.m};
+  color: ${({ theme }) => theme.white};
 `;
 const StyledSubmitButton = styled(SubmitButton)`
   background-color: ${({ theme }) => theme.white};
@@ -41,22 +37,29 @@ const StyledWorkersList = styled.div`
   text-align: center;
   position: relative;
   margin-top: 20px;
+  overflow-y: scroll;
 `;
 const StyledListDescription = styled.div`
   width: 95%;
-  height: 40px;
+  height: auto;
   display: flex;
-  position: absolute;
-  top: -25px;
+  margin-bottom: -20px;
 `;
 const StyledListDescriptionP = styled.p`
-color: ${({ theme }) => theme.white};
-font-size:color: ${({ theme }) => theme.font.size.s};
-width:25%;`;
+  color: ${({ theme }) => theme.white};
+  margin: 0px;
+
+  font-size: ${({ theme }) => theme.font.size.xxs};
+  width: 25%;
+  text-align: justify;
+`;
 
 const StyledError = styled.p`
   color: red;
   margin: 0px;
+`;
+const StyledSpan = styled.span`
+  color: ${({ theme }) => theme.white};
 `;
 class CreateCompany extends Component {
   state = {
@@ -92,7 +95,7 @@ class CreateCompany extends Component {
     });
   };
   handleSubmit = () => {
-    const { companyName, isCompanyNameEmpty, workers } = this.state;
+    const { companyName, workers } = this.state;
     const self = this;
     if (validator.ValidateCompany(companyName, workers, self)) {
       this.props.activeMenu();
@@ -118,28 +121,29 @@ class CreateCompany extends Component {
       <StyledDiv>
         <BreakerSmall />
         <CreateCompanyText>Create Company</CreateCompanyText>
+        <BreakerSmall />
         <form>
           <label htmlFor="companyName">
-            Company Name <br />
-            <br />
+            <StyledSpan>Company Name</StyledSpan>
+            <BreakerSmall />
             <StyledInput
               type="text"
               id="companyName"
               placeholder="Company Name"
               value={this.state.companyName}
               onChange={this.handleChange}
-              className={this.state.isCompanyNameEmpty ? "red" : null}
             />
           </label>
         </form>
-
+        <Breaker />
+        <StyledListDescription>
+          <StyledListDescriptionP>Name</StyledListDescriptionP>
+          <StyledListDescriptionP>Surname</StyledListDescriptionP>
+          <StyledListDescriptionP>Salary</StyledListDescriptionP>
+          <StyledListDescriptionP>Position</StyledListDescriptionP>
+        </StyledListDescription>
         <StyledWorkersList>
-          <StyledListDescription>
-            <StyledListDescriptionP>Name</StyledListDescriptionP>
-            <StyledListDescriptionP>Name</StyledListDescriptionP>
-            <StyledListDescriptionP>Name</StyledListDescriptionP>
-            <StyledListDescriptionP>Name</StyledListDescriptionP>
-          </StyledListDescription>
+          <BreakerSmall />
           {this.state.workers.map(worker => (
             <WorkersList
               key={worker.id}

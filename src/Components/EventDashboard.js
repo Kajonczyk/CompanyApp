@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import SubmitButton from "../Components/SubmitButton";
 import * as validator from "../Components/Validate";
-
+const StyledSubmitButton = styled(SubmitButton)`
+  border: 2px solid ${({ theme }) => theme.white};
+  box-shadow: 0px 0px 2px ${({ theme }) => theme.white};
+  color: ${({ theme }) => theme.white};
+`;
 class EventDashboard extends Component {
   state = {
     value: "",
@@ -44,7 +48,6 @@ class EventDashboard extends Component {
   };
 
   render() {
-    const { value, date } = this.state;
     return (
       <div>
         <p>Create Event</p>
@@ -58,9 +61,9 @@ class EventDashboard extends Component {
           onChange={this.handleChange}
           placeholder="Your text goes here"
         />
-        <SubmitButton onClick={() => this.handleCreateEvent_()}>
+        <StyledSubmitButton onClick={() => this.handleCreateEvent_()}>
           Submit
-        </SubmitButton>
+        </StyledSubmitButton>
       </div>
     );
   }

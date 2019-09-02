@@ -6,10 +6,16 @@ import SubmitButton from "../Components/SubmitButton";
 import * as validator from "../Components/Validate";
 
 const StyledDivWrapper = styled(StyledDiv)`
-  background-color: ${({ theme }) => theme.white}
+  background-color: ${({ theme }) => theme.white};
   transition: transform 2s;
   transform: translate(-50%, -50%)
     translateX(${({ activeCreation }) => (activeCreation ? "0px" : "0px")});
+`;
+const StyledSpan = styled.span`
+  color: ${({ theme }) => theme.green};
+`;
+const BreakerSmall = styled.div`
+  padding: 10px;
 `;
 class CreateWorker extends Component {
   state = {
@@ -39,7 +45,6 @@ class CreateWorker extends Component {
     this.setState({
       [id]: value
     });
-    console.log(`${id} is : ${this.state[id]}`);
   };
   handleSubmit = () => {
     const { id, name, surname, salary, position, errors } = this.state;
@@ -79,10 +84,10 @@ class CreateWorker extends Component {
     const { name, surname, salary, position } = this.state;
     return (
       <StyledDivWrapper activeCreation={this.props.activeCreation}>
-        <div>asdsad</div>
         <form>
+          <BreakerSmall />
           <label htmlFor="name">
-            Name
+            <StyledSpan>Name</StyledSpan>
             <br />
             <Input
               type="text"
@@ -92,9 +97,9 @@ class CreateWorker extends Component {
               onChange={this.handleChange}
             />
           </label>
-          <br />
+          <BreakerSmall />
           <label htmlFor="surname">
-            Surname
+            <StyledSpan>Surname</StyledSpan>
             <br />
             <Input
               type="text"
@@ -104,9 +109,9 @@ class CreateWorker extends Component {
               onChange={this.handleChange}
             />
           </label>
-          <br />
+          <BreakerSmall />
           <label htmlFor="salary">
-            Salary
+            <StyledSpan>Salary</StyledSpan>
             <br />
             <Input
               type="text"
@@ -116,9 +121,9 @@ class CreateWorker extends Component {
               onChange={this.handleChange}
             />
           </label>
-          <br />
+          <BreakerSmall />
           <label htmlFor="position">
-            Position
+            <StyledSpan>Position</StyledSpan>
             <br />
             <Input
               type="text"
@@ -128,7 +133,7 @@ class CreateWorker extends Component {
               onChange={this.handleChange}
             />
           </label>
-          <br />
+          <BreakerSmall />
         </form>
         <SubmitButton
           onClick={() => {

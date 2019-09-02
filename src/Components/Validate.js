@@ -23,7 +23,6 @@ export const ValidateWorkerData = (
   errors,
   self
 ) => {
-  const { nameError, surnameError, salaryError, positionError } = errors;
   let nameErr = false;
   let surnameErr = false;
   let salaryErr = false;

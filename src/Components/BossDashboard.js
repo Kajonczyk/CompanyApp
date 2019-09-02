@@ -6,11 +6,11 @@ import CreateWorker from "../Components/CreateWorker";
 import ChangeWorkersData from "../Components/ChangeWorkersData";
 import EventDashboard from "../Components/EventDashboard";
 import { Redirect } from "react-router-dom";
+import StyledDiv from "../Components/FullHeWiDiv";
 
 import { withRouter } from "react-router";
-const StyledDiv = styled.div`
-  min-height: 150vh;
-  width: 100%;
+const StyledDiv_ = styled(StyledDiv)`
+  height: auto;
 `;
 const StyledWorkersList = styled.div`
   width: 95%;
@@ -22,6 +22,11 @@ const StyledWorkersList = styled.div`
 const WorkerPrevievWrapper = styled.div`
   height: 200px;
   width: 100%;
+`;
+const StyledLogOutButton = styled(SubmitButton)`
+  border: 2px solid ${({ theme }) => theme.white};
+  box-shadow: 0px 0px 2px ${({ theme }) => theme.white};
+  color: ${({ theme }) => theme.white};
 `;
 const StyledParagraph = styled.p`
   color: ${({ theme }) => theme.green};
@@ -36,8 +41,7 @@ const StyledWrapper = styled.div`
 const StyledWorkerPreview = styled.div`
   height: 30px;
   width: 120px;
-  background-color: ${({ theme }) => theme.green};
-  color: ${({ theme }) => theme.white};
+
   box-shadow: 0px 0px 3px white;
   position: relative;
   box-shadow: 0px 0px 0px 2px ${({ theme }) => theme.green};
@@ -51,13 +55,12 @@ const StyledWorkerPreview = styled.div`
     transform: translate(-50%, -50%);
     color: ${({ theme }) => theme.green};
   }
-  &:nth-child(even) {
-    background-color: ${({ theme }) => theme.white};
-    color: ${({ theme }) => theme.green};
-    &::before {
-      content: "Left";
-      left: 47%;
-    }
+
+  background-color: ${({ theme }) => theme.white};
+  color: ${({ theme }) => theme.green};
+  &::before {
+    content: "Left";
+    left: 47%;
   }
 `;
 
@@ -113,6 +116,17 @@ class BossDashboard extends Component {
       return text;
     }
   };
+  FilterWorkers = type => {
+    let filtered;
+    filtered = this.props.workers.filter(worker => worker.dates.length == 0);
+
+    if (type === "absent") {
+      return filtered.length;
+    } else {
+      console.log("other");
+      return this.props.workers.length - filtered.length;
+    }
+  };
   handleSelectChange = e => {
     console.log(e.target.value);
     this.setState({
@@ -133,7 +147,7 @@ class BossDashboard extends Component {
     }
     return (
       <>
-        <StyledDiv>
+        <StyledDiv_>
           <div>siema</div>
           <StyledWorkersList>
             {this.props.workers.map(worker => (
@@ -182,7 +196,7 @@ class BossDashboard extends Component {
             <StyledWrapper>
               <StyledWorkerPreview>
                 {/* It ain't working for now */}
-                {this.state.selectValue &&
+                {/* {this.state.selectValue &&
                 Boolean(
                   this.props.workers[this.state.selectValue].dates[
                     this.state.date
@@ -191,7 +205,11 @@ class BossDashboard extends Component {
                   ? this.props.workers[this.state.selectValue].dates[
                       this.state.date
                     ].signIn
-                  : "Data not set"}
+                  : "Data not set"} */}
+                {/* {typeof this.props.workers[this.state.selectValue].dates ==
+                undefined
+                  ? console.log("null")
+                  : this.props.workers[this.state.selectValue].dates[0].signIn} */}
               </StyledWorkerPreview>
               <StyledWorkerPreview>
                 {this.state.selectValue &&
@@ -209,12 +227,15 @@ class BossDashboard extends Component {
           </WorkerPrevievWrapper>
           <EventDashboard handleCreateEvent={this.props.handleCreateEvent} />
           <div>Amount of Employees: {this.props.workers.length}</div>
-          <div>Working: {this.props.workers.dates}</div>
-          <div>Absent: {this.props.workers.length}</div>
-          <SubmitButton onClick={this.handleLogOut}>Log Out</SubmitButton>
-        </StyledDiv>
+          <div>Working:{this.FilterWorkers()}</div>
+          <div>Absent: {this.FilterWorkers("absent")}</div>
+          <StyledLogOutButton onClick={this.handleLogOut}>
+            Log Out
+          </StyledLogOutButton>
+        </StyledDiv_>
       </>
     );
   }
 }
+BossDashboard.defaultProps = {};
 export default withRouter(BossDashboard);

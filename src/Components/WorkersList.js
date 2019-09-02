@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { Bin2 } from "styled-icons/icomoon/Bin2";
 import { Pencil } from "styled-icons/boxicons-solid/Pencil";
 const StyledDiv = styled.div`
   display: flex;
   color: ${({ theme }) => theme.green};
   justify-content: space-between;
   text-align: left;
+  width: 100%;
 `;
 const DeleteButton = styled.div`
   width: 30px;
@@ -49,8 +49,6 @@ const WorkersList = ({
   handleEditUser,
   handleUserChange
 }) => {
-  function onClickFunctions() {}
-
   return (
     <StyledDiv>
       <StyledP>{name}</StyledP>

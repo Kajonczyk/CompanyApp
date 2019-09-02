@@ -1,14 +1,15 @@
 const theme = {
-  white: "#f6f7d7",
-  green: "#3ec1d3",
+  white: "#ff9069",
+  green: "#155263",
   darkBlue: "#1b57cf",
-  red: "#f23a3a",
+  purple: "#f23a3a",
   font: {
     size: {
+      xxs: ".65rem",
       xs: ".8rem",
       s: "1.1rem",
       m: "1.6rem",
-      xl: "3.1rem",
+      l: "2.1rem",
       generateHeading: "1rem",
       generateDesc: ".9rem"
     },

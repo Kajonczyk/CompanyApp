@@ -10,6 +10,7 @@ import * as validator from "../Components/Validate";
 const StyledInput = styled(Input)`
   border-bottom: 2px solid ${({ theme }) => theme.white};
   padding: 3px;
+  color: ${({ theme }) => theme.white};
   &::placeholder {
     color: ${({ theme }) => theme.white};
   }

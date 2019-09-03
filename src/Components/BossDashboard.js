@@ -11,6 +11,7 @@ import StyledDiv from "../Components/FullHeWiDiv";
 import { withRouter } from "react-router";
 const StyledDiv_ = styled(StyledDiv)`
   height: auto;
+  z-index: 2;
 `;
 const StyledWorkersList = styled.div`
   width: 95%;

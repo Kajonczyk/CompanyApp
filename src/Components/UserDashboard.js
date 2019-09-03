@@ -23,6 +23,9 @@ const StyledAttendanceDiv = styled.div`
   justify-content: space-between;
   padding-top: 30px;
 `;
+const StyledSection = styled.section`
+  z-index: 3;
+`;
 const StyledCheckIn = styled.div`
   height: 40px;
   width: 130px;
@@ -194,71 +197,73 @@ class UserDashboard extends Component {
     }
     return (
       <>
-        <StyledDiv>
-          <div>
-            <StyledP>
-              You're logged as {name} {surname}
-            </StyledP>
-          </div>
+        <StyledSection>
+          <StyledDiv>
+            <div>
+              <StyledP>
+                You're logged as {name} {surname}
+              </StyledP>
+            </div>
 
-          <StyledAttendanceList>
-            <PreviewWorkersData
-              user={this.props.user}
-              userDates={this.props.user.dates}
-              date={this.state.date}
-            />
-          </StyledAttendanceList>
+            <StyledAttendanceList>
+              <PreviewWorkersData
+                user={this.props.user}
+                userDates={this.props.user.dates}
+                date={this.state.date}
+              />
+            </StyledAttendanceList>
 
-          <StyledAttendanceDiv>
-            <StyledCheckIn onClick={() => this.handleCheckClick("in")}>
-              {this.state.checkInClicked ? (
-                <StyledConfirmDiv>
-                  <div>
-                    <StyledConfirmButton>
-                      <StyledTick
-                        onClick={() => this.handleButtonClick("tick", "in")}
-                      />
-                    </StyledConfirmButton>
-                  </div>
-                  <div>
-                    <StyledConfirmButton>
-                      <StyledCancel
-                        onClick={() => this.handleButtonClick("cross", "in")}
-                      />
-                    </StyledConfirmButton>
-                  </div>
-                </StyledConfirmDiv>
-              ) : null}
-              {this.state.isCheckedIn ? this.state.checkInTime : "Sign In"}
-            </StyledCheckIn>
+            <StyledAttendanceDiv>
+              <StyledCheckIn onClick={() => this.handleCheckClick("in")}>
+                {this.state.checkInClicked ? (
+                  <StyledConfirmDiv>
+                    <div>
+                      <StyledConfirmButton>
+                        <StyledTick
+                          onClick={() => this.handleButtonClick("tick", "in")}
+                        />
+                      </StyledConfirmButton>
+                    </div>
+                    <div>
+                      <StyledConfirmButton>
+                        <StyledCancel
+                          onClick={() => this.handleButtonClick("cross", "in")}
+                        />
+                      </StyledConfirmButton>
+                    </div>
+                  </StyledConfirmDiv>
+                ) : null}
+                {this.state.isCheckedIn ? this.state.checkInTime : "Sign In"}
+              </StyledCheckIn>
 
-            <StyledCheckOut onClick={() => this.handleCheckClick("out")}>
-              {this.state.checkOutClicked ? (
-                <StyledConfirmDiv>
-                  <div>
-                    <StyledConfirmButton>
-                      <StyledTick
-                        onClick={() => this.handleButtonClick("tick", "out")}
-                      />
-                    </StyledConfirmButton>
-                  </div>
-                  <div>
-                    <StyledConfirmButton>
-                      <StyledCancel
-                        onClick={() => this.handleButtonClick("cross", "out")}
-                      />
-                    </StyledConfirmButton>
-                  </div>
-                </StyledConfirmDiv>
-              ) : null}
-              {this.state.isCheckedOut ? this.state.checkOutTime : "Sign Out"}
-            </StyledCheckOut>
-          </StyledAttendanceDiv>
-          <UserEventDasboard globalEvents={this.props.globalEvents} />
-          <StyledLogOutButton onClick={this.handleLogOut}>
-            Log Out{" "}
-          </StyledLogOutButton>
-        </StyledDiv>
+              <StyledCheckOut onClick={() => this.handleCheckClick("out")}>
+                {this.state.checkOutClicked ? (
+                  <StyledConfirmDiv>
+                    <div>
+                      <StyledConfirmButton>
+                        <StyledTick
+                          onClick={() => this.handleButtonClick("tick", "out")}
+                        />
+                      </StyledConfirmButton>
+                    </div>
+                    <div>
+                      <StyledConfirmButton>
+                        <StyledCancel
+                          onClick={() => this.handleButtonClick("cross", "out")}
+                        />
+                      </StyledConfirmButton>
+                    </div>
+                  </StyledConfirmDiv>
+                ) : null}
+                {this.state.isCheckedOut ? this.state.checkOutTime : "Sign Out"}
+              </StyledCheckOut>
+            </StyledAttendanceDiv>
+            <UserEventDasboard globalEvents={this.props.globalEvents} />
+            <StyledLogOutButton onClick={this.handleLogOut}>
+              Log Out{" "}
+            </StyledLogOutButton>
+          </StyledDiv>
+        </StyledSection>
       </>
     );
   }

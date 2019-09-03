@@ -4,6 +4,7 @@ const Input = styled.input`
   background: transparent;
   border: 0px;
   border-bottom: 2px solid ${({ theme }) => theme.green};
+  color: ${({ theme }) => theme.green};
 
   &:focus::placeholder {
     transform: translateX(40px);

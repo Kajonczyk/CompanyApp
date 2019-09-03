@@ -22,6 +22,7 @@ const StyledSection = styled.div`
   justify-content: center;
   width: 100%;
   background-image: linear-gradient(0deg, #ff9069 50%, #155263 53%);
+  z-index: 1;
 `;
 const StyledCompanyGreeting = styled.div`
   height: 45vh;
@@ -272,40 +273,41 @@ class StartScreen extends Component {
   render() {
     return (
       <>
+        <Router history={history}>
+          <Switch>
+            <Route exact path="/" />
+            <Route
+              exact
+              path="/user"
+              render={() => (
+                <UserDashboard
+                  user={this.state.workers[this.state.userIndex]}
+                  handleUserDateChange={this.handleUserDateChange}
+                  globalEvents={this.state.globalEvents}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/boss"
+              render={() => (
+                <BossDashboard
+                  workers={this.state.workers}
+                  create={this.createWorker}
+                  deleteUser={this.handleDeleteUser}
+                  handleIdChange={this.handleIdChange}
+                  id={this.state.id}
+                  handleUserDataChange={this.handleUserDataChange}
+                  handleEditUser={this.handleEditUser}
+                  idEditedElement={this.state.idEditedElement}
+                  handleCreateEvent={this.handleCreateEvent}
+                />
+              )}
+            />
+            <Route render={() => <div>How did you get there?</div>} />
+          </Switch>
+        </Router>
         <StyledSection className="SS">
-          <Router history={history}>
-            <Switch>
-              <Route exact path="/" />
-              <Route
-                path="/user"
-                render={() => (
-                  <UserDashboard
-                    user={this.state.workers[this.state.userIndex]}
-                    handleUserDateChange={this.handleUserDateChange}
-                    globalEvents={this.state.globalEvents}
-                  />
-                )}
-              />
-              <Route
-                path="/boss"
-                render={() => (
-                  <BossDashboard
-                    workers={this.state.workers}
-                    create={this.createWorker}
-                    deleteUser={this.handleDeleteUser}
-                    handleIdChange={this.handleIdChange}
-                    id={this.state.id}
-                    handleUserDataChange={this.handleUserDataChange}
-                    handleEditUser={this.handleEditUser}
-                    idEditedElement={this.state.idEditedElement}
-                    handleCreateEvent={this.handleCreateEvent}
-                  />
-                )}
-              />
-              <Route render={() => <div>How did you get there boy?</div>} />
-            </Switch>
-          </Router>
-
           <StyledCompanyGreeting>
             {this.state.companyName ? (
               <StyledLoginGreeting>

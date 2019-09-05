@@ -6,7 +6,7 @@ export const ValidateLogin = (loginError, self) => {
   });
 };
 export const ValidateCompany = (name, workers, self) => {
-  if (name.length > 1 && workers.length >= 1) {
+  if (name.length > 1 && name.length <= 15 && workers.length >= 1) {
     self.setState({
       companyError: true
     });
@@ -29,24 +29,28 @@ export const ValidateWorkerData = (
   let positionErr = false;
 
   if (
-    name.length > 1 &&
-    surname.length > 1 &&
+    name.length >= 1 &&
+    name.length <= 15 &&
+    surname.length >= 1 &&
+    surname.length <= 20 &&
     salary.length >= 3 &&
-    position.length >= 4
+    salary.length <= 6 &&
+    position.length >= 4 &&
+    position.length <= 15
   ) {
     return true;
   } else {
-    if (name.length < 1) {
+    if (name.length < 1 || name.length > 15) {
       nameErr = true;
     }
 
-    if (surname.length < 1) {
+    if (surname.length < 1 || surname.length > 20) {
       surnameErr = true;
     }
-    if (salary.length < 3) {
+    if (salary.length < 3 || salary.length > 6) {
       salaryErr = true;
     }
-    if (position.length < 4) {
+    if (position.length < 4 || position.length > 15) {
       positionErr = true;
     }
     return self.setState({

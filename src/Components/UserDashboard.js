@@ -42,7 +42,7 @@ const StyledCheckOut = styled(StyledCheckIn)`
   background-color: ${({ theme }) => theme.red};
 `;
 const StyledP = styled.p`
-  color: ${({ theme }) => theme.red};
+  color: ${({ theme }) => theme.white};
 `;
 const StyledConfirmDiv = styled.div`
   height: 36px;
@@ -199,11 +199,9 @@ class UserDashboard extends Component {
       <>
         <StyledSection>
           <StyledDiv>
-            <div>
-              <StyledP>
-                You're logged as {name} {surname}
-              </StyledP>
-            </div>
+            <StyledP>
+              You're logged as {name} {surname}
+            </StyledP>
 
             <StyledAttendanceList>
               <PreviewWorkersData

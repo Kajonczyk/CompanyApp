@@ -3,6 +3,7 @@ import styled from "styled-components";
 import StyledDiv from "../Components/FullHeWiDiv";
 import Input from "../Components/InputField";
 import SubmitButton from "../Components/SubmitButton";
+import StyledError from "../Components/StyledError";
 import * as validator from "../Components/Validate";
 
 const StyledDivWrapper = styled(StyledDiv)`
@@ -24,8 +25,6 @@ class CreateWorker extends Component {
     surname: "",
     salary: "",
     position: "",
-    login: "",
-    password: "",
     errors: {
       nameError: false,
       surnameError: false,
@@ -76,12 +75,19 @@ class CreateWorker extends Component {
         salary: "",
         position: ""
       });
+      return alert(`Login:  ${login}, Haslo: ${password}`);
     } else {
       console.log("Wrong data");
     }
   };
   render() {
     const { name, surname, salary, position } = this.state;
+    const {
+      nameError,
+      surnameError,
+      salaryError,
+      positionError
+    } = this.state.errors;
     return (
       <StyledDivWrapper activeCreation={this.props.activeCreation}>
         <form>
@@ -96,6 +102,9 @@ class CreateWorker extends Component {
               value={name}
               onChange={this.handleChange}
             />
+            {nameError ? (
+              <StyledError>Name valid length is 1-15</StyledError>
+            ) : null}
           </label>
           <BreakerSmall />
           <label htmlFor="surname">
@@ -108,18 +117,24 @@ class CreateWorker extends Component {
               value={surname}
               onChange={this.handleChange}
             />
+            {surnameError ? (
+              <StyledError>Surname valid length is 1-20</StyledError>
+            ) : null}
           </label>
           <BreakerSmall />
           <label htmlFor="salary">
             <StyledSpan>Salary</StyledSpan>
             <br />
             <Input
-              type="text"
+              type="number"
               placeholder="Salary"
               id="salary"
               value={salary}
               onChange={this.handleChange}
             />
+            {salaryError ? (
+              <StyledError>Salary valid length is 3-6</StyledError>
+            ) : null}
           </label>
           <BreakerSmall />
           <label htmlFor="position">
@@ -132,6 +147,9 @@ class CreateWorker extends Component {
               value={position}
               onChange={this.handleChange}
             />
+            {positionError ? (
+              <StyledError>Position valid length is 4-15 </StyledError>
+            ) : null}
           </label>
           <BreakerSmall />
         </form>

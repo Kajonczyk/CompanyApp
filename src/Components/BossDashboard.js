@@ -23,6 +23,7 @@ const StyledWorkersList = styled.div`
 const WorkerPrevievWrapper = styled.div`
   height: 200px;
   width: 100%;
+  text-align: center;
 `;
 const StyledLogOutButton = styled(SubmitButton)`
   border: 2px solid ${({ theme }) => theme.white};
@@ -30,7 +31,7 @@ const StyledLogOutButton = styled(SubmitButton)`
   color: ${({ theme }) => theme.white};
 `;
 const StyledParagraph = styled.p`
-  color: ${({ theme }) => theme.green};
+  color: ${({ theme }) => theme.white};
   font-size: ${({ theme }) => theme.font.size.s};
 `;
 const StyledWrapper = styled.div`
@@ -211,9 +212,14 @@ class BossDashboard extends Component {
                 undefined
                   ? console.log("null")
                   : this.props.workers[this.state.selectValue].dates[0].signIn} */}
+
+                {this.state.selectValue &&
+                this.props.workers[this.state.selectValue].dates.length > 0
+                  ? this.props.workers[this.state.selectValue].dates[0].signIn
+                  : null}
               </StyledWorkerPreview>
               <StyledWorkerPreview>
-                {this.state.selectValue &&
+                {/* {this.state.selectValue &&
                 Boolean(
                   this.props.workers[this.state.selectValue].dates[
                     this.state.date
@@ -222,7 +228,11 @@ class BossDashboard extends Component {
                   ? this.props.workers[this.state.selectValue].dates[
                       this.state.date
                     ].signOut
-                  : "Data not set"}
+                  : "Data not set"} */}
+                {this.state.selectValue &&
+                this.props.workers[this.state.selectValue].dates.length > 0
+                  ? this.props.workers[this.state.selectValue].dates[0].signOut
+                  : null}
               </StyledWorkerPreview>
             </StyledWrapper>
           </WorkerPrevievWrapper>

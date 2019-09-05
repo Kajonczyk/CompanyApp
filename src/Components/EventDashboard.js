@@ -7,6 +7,9 @@ const StyledSubmitButton = styled(SubmitButton)`
   box-shadow: 0px 0px 2px ${({ theme }) => theme.white};
   color: ${({ theme }) => theme.white};
 `;
+const StyledDiv = styled.div`
+  text-align: center;
+`;
 class EventDashboard extends Component {
   state = {
     value: "",
@@ -49,7 +52,7 @@ class EventDashboard extends Component {
 
   render() {
     return (
-      <div>
+      <StyledDiv>
         <p>Create Event</p>
         <input type="date" onChange={this.handleChange} />
         <textarea
@@ -64,7 +67,7 @@ class EventDashboard extends Component {
         <StyledSubmitButton onClick={() => this.handleCreateEvent_()}>
           Submit
         </StyledSubmitButton>
-      </div>
+      </StyledDiv>
     );
   }
 }

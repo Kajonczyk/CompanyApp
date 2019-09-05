@@ -9,6 +9,7 @@ import Input from "../Components/InputField";
 import history from "../Components/history";
 import BossDashboard from "../Components/BossDashboard";
 import UserDashboard from "../Components/UserDashboard";
+import StyledError from "../Components/StyledError";
 import * as validator from "../Components/Validate";
 import { Plus } from "styled-icons/boxicons-regular/Plus";
 import { Hourglass } from "styled-icons/boxicons-regular/Hourglass";
@@ -95,9 +96,6 @@ const StyledCompanyButton2 = styled(SubmitButton)`
   }
 `;
 
-const StyledError = styled.p`
-  color: red;
-`;
 class StartScreen extends Component {
   state = {
     isCompany: false,
@@ -311,7 +309,7 @@ class StartScreen extends Component {
           <StyledCompanyGreeting>
             {this.state.companyName ? (
               <StyledLoginGreeting>
-                Log in to ${this.state.companyName}
+                Log in to {this.state.companyName}
               </StyledLoginGreeting>
             ) : (
               <StyledCompanyButton2 onClick={this.handleCreateCompany}>
@@ -353,7 +351,7 @@ class StartScreen extends Component {
                 onChange={this.handleChange}
               />
               {this.state.loginError ? (
-                <StyledError>Wrong Data</StyledError>
+                <StyledError>Incorrect username or password</StyledError>
               ) : null}
 
               <SubmitButton onClick={this.handleSubmit}>Login</SubmitButton>

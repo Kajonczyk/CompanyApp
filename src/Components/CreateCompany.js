@@ -5,6 +5,9 @@ import SubmitButton from "../Components/SubmitButton";
 import StyledDiv from "../Components/FullHeWiDiv";
 import CreateWorker from "../Components/CreateWorker";
 import WorkersList from "../Components/WorkersList";
+import StyledError from "../Components/StyledError";
+
+import StyledListDescription from "../Components/StyledListDescription";
 import * as validator from "../Components/Validate";
 
 const StyledInput = styled(Input)`
@@ -40,25 +43,7 @@ const StyledWorkersList = styled.div`
   margin-top: 20px;
   overflow-y: scroll;
 `;
-const StyledListDescription = styled.div`
-  width: 95%;
-  height: auto;
-  display: flex;
-  margin-bottom: -20px;
-`;
-const StyledListDescriptionP = styled.p`
-  color: ${({ theme }) => theme.white};
-  margin: 0px;
 
-  font-size: ${({ theme }) => theme.font.size.xxs};
-  width: 25%;
-  text-align: justify;
-`;
-
-const StyledError = styled.p`
-  color: red;
-  margin: 0px;
-`;
 const StyledSpan = styled.span`
   color: ${({ theme }) => theme.white};
 `;
@@ -137,12 +122,8 @@ class CreateCompany extends Component {
           </label>
         </form>
         <Breaker />
-        <StyledListDescription>
-          <StyledListDescriptionP>Name</StyledListDescriptionP>
-          <StyledListDescriptionP>Surname</StyledListDescriptionP>
-          <StyledListDescriptionP>Salary</StyledListDescriptionP>
-          <StyledListDescriptionP>Position</StyledListDescriptionP>
-        </StyledListDescription>
+        <StyledListDescription />
+
         <StyledWorkersList>
           <BreakerSmall />
           {this.state.workers.map(worker => (
@@ -168,9 +149,13 @@ class CreateCompany extends Component {
             id={this.props.id}
           />
         ) : null}
-        {this.state.companyError ? <StyledError>12312</StyledError> : null}
-        <BreakerSmall />
 
+        <BreakerSmall />
+        {this.state.companyError ? (
+          <StyledError>
+            Company's name must be between 2-15 or workers are missing
+          </StyledError>
+        ) : null}
         <StyledSubmitButton onClick={this.handleSubmit}>
           Create
         </StyledSubmitButton>

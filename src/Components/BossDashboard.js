@@ -7,18 +7,22 @@ import ChangeWorkersData from "../Components/ChangeWorkersData";
 import EventDashboard from "../Components/EventDashboard";
 import { Redirect } from "react-router-dom";
 import StyledDiv from "../Components/FullHeWiDiv";
+import StyledListDescription from "../Components/StyledListDescription";
 
 import { withRouter } from "react-router";
 const StyledDiv_ = styled(StyledDiv)`
   height: auto;
+  min-height: 100vh;
   z-index: 2;
 `;
 const StyledWorkersList = styled.div`
   width: 95%;
   background-color: ${({ theme }) => theme.white};
   margin-top: 50px;
-  min-height: 100px;
+  min-height: 200px;
   padding: 0px 20px;
+  overflow-y: scroll;
+  position: relative;
 `;
 const WorkerPrevievWrapper = styled.div`
   height: 200px;
@@ -39,6 +43,11 @@ const StyledWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 30px 20px;
+`;
+const StyledListDescription_ = styled(StyledListDescription)`
+  position: absolute;
+  background-color: red;
+  margin-bottom: -500px;
 `;
 const StyledWorkerPreview = styled.div`
   height: 30px;
@@ -64,6 +73,19 @@ const StyledWorkerPreview = styled.div`
     content: "Left";
     left: 47%;
   }
+`;
+const Breaker = styled.div`
+  padding: 80px;
+`;
+const StyledSelect = styled.select`
+  border: 0px;
+  background-color: transparent;
+  border-bottom: 2px solid ${({ theme }) => theme.white};
+  color: ${({ theme }) => theme.white};
+  padding: 3px 10px;
+`;
+const PreviewEmployeesAttendance = styled.div`
+  color: ${({ theme }) => theme.white};
 `;
 
 class BossDashboard extends Component {
@@ -150,7 +172,7 @@ class BossDashboard extends Component {
     return (
       <>
         <StyledDiv_>
-          <div>siema</div>
+          <Breaker />
           <StyledWorkersList>
             {this.props.workers.map(worker => (
               <WorkersList
@@ -166,7 +188,9 @@ class BossDashboard extends Component {
               />
             ))}
           </StyledWorkersList>
-          <SubmitButton onClick={this.handleClick}>Add+</SubmitButton>
+          <StyledLogOutButton onClick={this.handleClick}>
+            Add+
+          </StyledLogOutButton>
           {this.state.isUserBeingCreated ? (
             <CreateWorker
               create={this.props.create}
@@ -185,7 +209,7 @@ class BossDashboard extends Component {
 
           <WorkerPrevievWrapper>
             <StyledParagraph>Employees Preview</StyledParagraph>
-            <select onChange={this.handleSelectChange}>
+            <StyledSelect onChange={this.handleSelectChange}>
               <option disabled={true} selected={true}>
                 Choose Employee
               </option>
@@ -194,25 +218,9 @@ class BossDashboard extends Component {
                   {worker.name} {worker.surname}
                 </option>
               ))}
-            </select>
+            </StyledSelect>
             <StyledWrapper>
               <StyledWorkerPreview>
-                {/* It ain't working for now */}
-                {/* {this.state.selectValue &&
-                Boolean(
-                  this.props.workers[this.state.selectValue].dates[
-                    this.state.date
-                  ]
-                )
-                  ? this.props.workers[this.state.selectValue].dates[
-                      this.state.date
-                    ].signIn
-                  : "Data not set"} */}
-                {/* {typeof this.props.workers[this.state.selectValue].dates ==
-                undefined
-                  ? console.log("null")
-                  : this.props.workers[this.state.selectValue].dates[0].signIn} */}
-
                 {this.state.selectValue &&
                 this.props.workers[this.state.selectValue].dates.length > 0
                   ? this.props.workers[this.state.selectValue].dates[0].signIn
@@ -237,9 +245,15 @@ class BossDashboard extends Component {
             </StyledWrapper>
           </WorkerPrevievWrapper>
           <EventDashboard handleCreateEvent={this.props.handleCreateEvent} />
-          <div>Amount of Employees: {this.props.workers.length}</div>
-          <div>Working:{this.FilterWorkers()}</div>
-          <div>Absent: {this.FilterWorkers("absent")}</div>
+          <PreviewEmployeesAttendance>
+            Amount of Employees: {this.props.workers.length}
+          </PreviewEmployeesAttendance>
+          <PreviewEmployeesAttendance>
+            Working:{this.FilterWorkers()}
+          </PreviewEmployeesAttendance>
+          <PreviewEmployeesAttendance>
+            Absent: {this.FilterWorkers("absent")}
+          </PreviewEmployeesAttendance>
           <StyledLogOutButton onClick={this.handleLogOut}>
             Log Out
           </StyledLogOutButton>

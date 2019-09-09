@@ -9,6 +9,8 @@ import * as validator from "../Components/Validate";
 const StyledDivWrapper = styled(StyledDiv)`
   background-color: ${({ theme }) => theme.white};
   transition: transform 2s;
+  height: auto;
+  min-height: 100vh;
   transform: translate(-50%, -50%)
     translateX(${({ activeCreation }) => (activeCreation ? "0px" : "0px")});
 `;

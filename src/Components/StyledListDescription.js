@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const ListWrapper = styled.div`
+export const ListWrapper = styled.div`
   width: 95%;
   height: auto;
   display: flex;

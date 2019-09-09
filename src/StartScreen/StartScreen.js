@@ -271,7 +271,7 @@ class StartScreen extends Component {
   render() {
     return (
       <>
-        <Router history={history}>
+        <Router basename={process.env.PUBLIC_URL} history={history}>
           <Switch>
             <Route exact path="/" />
             <Route
@@ -328,9 +328,7 @@ class StartScreen extends Component {
               />
             ) : null}
           </StyledCompanyGreeting>
-          <IconWrapper>
-            <StyledBreakingIcon />
-          </IconWrapper>
+          <IconWrapper>{/* <StyledBreakingIcon /> */}</IconWrapper>
           <StyledLoginWrapper>
             <form>
               <br />

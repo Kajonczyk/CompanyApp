@@ -10,6 +10,29 @@ const StyledSubmitButton = styled(SubmitButton)`
 const StyledDiv = styled.div`
   text-align: center;
 `;
+const StyledDate = styled.input`
+  border: 0px;
+  background-color: transparent;
+  border-bottom: 2px solid ${({ theme }) => theme.white};
+  color: ${({ theme }) => theme.white};
+  padding: 5px 10px;
+  margin-bottom: 15px;
+`;
+const StyledTextArea = styled.textarea`
+  background-color: transparent;
+  border: 0px;
+  border-bottom: 2px solid ${({ theme }) => theme.white};
+  color: ${({ theme }) => theme.white};
+  padding-top: 10px;
+  &::placeholder {
+    color: ${({ theme }) => theme.white};
+    text-align: center;
+  }
+`;
+const StyledP = styled.p`
+  color: ${({ theme }) => theme.white};
+  padding-bottom: 5px;
+`;
 class EventDashboard extends Component {
   state = {
     value: "",
@@ -53,9 +76,9 @@ class EventDashboard extends Component {
   render() {
     return (
       <StyledDiv>
-        <p>Create Event</p>
-        <input type="date" onChange={this.handleChange} />
-        <textarea
+        <StyledP>Create Event</StyledP>
+        <StyledDate type="date" onChange={this.handleChange} />
+        <StyledTextArea
           name="event"
           id="event"
           cols="35"

@@ -19,7 +19,7 @@ function App() {
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <>
-          <StyledWrapper >
+          <StyledWrapper>
             <StartScreen />
           </StyledWrapper>
         </>

@@ -58,20 +58,23 @@ const WorkersList = ({
       {isVisible ? (
         <>
           <div>
-            <StyledBin
-              onClick={e => {
-                deleteUser(e);
-              }}
-            />
-          </div>
-          <div>
             {" "}
-            <StyledPencil
-              onClick={e => {
-                handleEditUser(e);
-                handleUserChange();
-              }}
-            />
+            <div>
+              <StyledBin
+                onClick={e => {
+                  deleteUser(e);
+                }}
+              />
+            </div>
+            <div>
+              {" "}
+              <StyledPencil
+                onClick={e => {
+                  handleEditUser(e);
+                  handleUserChange();
+                }}
+              />
+            </div>{" "}
           </div>
         </>
       ) : null}

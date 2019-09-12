@@ -12,7 +12,6 @@ import StyledListDescription from "../Components/StyledListDescription";
 import { withRouter } from "react-router";
 const StyledDiv_ = styled(StyledDiv)`
   height: auto;
-  min-height: 100vh;
   z-index: 2;
 `;
 const StyledWorkersList = styled.div`
@@ -56,6 +55,8 @@ const StyledWorkerPreview = styled.div`
   box-shadow: 0px 0px 3px white;
   position: relative;
   box-shadow: 0px 0px 0px 2px ${({ theme }) => theme.green};
+  z-index: -1;
+
   &::before {
     content: "Came";
     position: absolute;
@@ -69,13 +70,9 @@ const StyledWorkerPreview = styled.div`
 
   background-color: ${({ theme }) => theme.white};
   color: ${({ theme }) => theme.green};
-  &::before {
-    content: "Left";
-    left: 47%;
-  }
 `;
 const Breaker = styled.div`
-  padding: 80px;
+  padding: 140px;
 `;
 const StyledSelect = styled.select`
   border: 0px;
@@ -204,6 +201,7 @@ class BossDashboard extends Component {
               handleUserDataChange={this.props.handleUserDataChange}
               idEditedElement={this.props.idEditedElement}
               handleForceUpdate={this.handleForceUpdate}
+              click={this.handleUserChange}
             />
           ) : null}
 

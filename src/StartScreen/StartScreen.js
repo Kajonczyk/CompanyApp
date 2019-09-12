@@ -302,7 +302,7 @@ class StartScreen extends Component {
                 />
               )}
             />
-            <Route render={() => <div>How did you get there?</div>} />
+            {/* <Route render={() => <div>How did you get there?</div>} /> */}
           </Switch>
         </Router>
         <StyledSection className="SS">

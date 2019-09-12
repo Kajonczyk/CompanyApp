@@ -2,12 +2,29 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Input from "../Components/InputField";
 import * as validator from "../Components/Validate";
+import SubmitButton from "../Components/SubmitButton";
 
 const StyledWrapper = styled.div`
-  height: 50vh;
+  height: 100%;
   width: 100%;
-  background-color: lawngreen;
+  background-color: ${({ theme }) => theme.white};
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 `;
+const BreakerSmall = styled.div`
+  padding: 30px;
+`;
+const StyledSpan = styled.span`
+  color: ${({ theme }) => theme.green};
+`;
+
 class ChangeWorkersData extends Component {
   state = {
     name: "",
@@ -49,6 +66,7 @@ class ChangeWorkersData extends Component {
         salary,
         position
       );
+      this.props.click();
     } else {
       console.log("XD");
     }
@@ -59,12 +77,35 @@ class ChangeWorkersData extends Component {
 
     return (
       <StyledWrapper>
-        <div>XD</div>
-        <Input id="name" value={name} onChange={this.handleChange} />
-        <Input id="surname" value={surname} onChange={this.handleChange} />
-        <Input id="salary" value={salary} onChange={this.handleChange} />
-        <Input id="position" value={position} onChange={this.handleChange} />
-        <button onClick={() => this.validateFunction()}>Submit</button>
+        <BreakerSmall />
+        <label>
+          <StyledSpan>Name</StyledSpan>
+          <br />
+          <Input id="name" value={name} onChange={this.handleChange} />
+        </label>
+        <BreakerSmall />
+        <label>
+          <StyledSpan>Surname</StyledSpan>
+          <br />
+          <Input id="surname" value={surname} onChange={this.handleChange} />
+        </label>
+        <BreakerSmall />
+        <label>
+          <StyledSpan>Salary</StyledSpan>
+          <br />
+          <Input id="salary" value={salary} onChange={this.handleChange} />
+        </label>
+        <BreakerSmall />
+        <label>
+          <StyledSpan>Position</StyledSpan>
+          <br />
+          <Input id="position" value={position} onChange={this.handleChange} />
+        </label>
+
+        <BreakerSmall />
+        <SubmitButton onClick={() => this.validateFunction()}>
+          Submit
+        </SubmitButton>
       </StyledWrapper>
     );
   }

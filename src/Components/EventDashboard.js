@@ -23,16 +23,27 @@ const StyledTextArea = styled.textarea`
   border: 0px;
   border-bottom: 2px solid ${({ theme }) => theme.white};
   color: ${({ theme }) => theme.white};
-  padding-top: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   &::placeholder {
     color: ${({ theme }) => theme.white};
-    text-align: center;
+    // text-align: center;
   }
 `;
 const StyledP = styled.p`
   color: ${({ theme }) => theme.white};
   padding-bottom: 5px;
 `;
+const StyledConfirmP = styled.p`
+  color: lawngreen;
+  opacity: 0;
+  margin-top: -5px;
+  transition: all 0.3s;
+  &.active {
+    opacity: 1;
+  }
+`;
+
 class EventDashboard extends Component {
   state = {
     value: "",
@@ -40,14 +51,14 @@ class EventDashboard extends Component {
     errors: {
       dateError_: false,
       valueError_: false
-    }
+    },
+    activeConfirm: false
   };
   handleChange = (e, type) => {
     let value = e.target.value;
     type = e.target.type;
 
     if (type === "date") {
-      console.log(value);
       this.setState({
         date: value
       });
@@ -56,10 +67,11 @@ class EventDashboard extends Component {
         value
       });
     }
-    console.log(type);
   };
+
   handleCreateEvent_ = () => {
     const { value, date } = this.state;
+
     const self = this;
     this.setState({
       errors: {
@@ -70,6 +82,15 @@ class EventDashboard extends Component {
 
     if (validator.ValidateGlobalEvent(value, date, self)) {
       this.props.handleCreateEvent(value, date);
+      this.setState({
+        value: "",
+        activeConfirm: true
+      });
+      return setTimeout(() => {
+        this.setState({
+          activeConfirm: false
+        });
+      }, 3000);
     }
   };
 
@@ -87,6 +108,9 @@ class EventDashboard extends Component {
           onChange={this.handleChange}
           placeholder="Your text goes here"
         />
+        <StyledConfirmP className={this.state.activeConfirm ? "active" : ""}>
+          Event Created
+        </StyledConfirmP>
         <StyledSubmitButton onClick={() => this.handleCreateEvent_()}>
           Submit
         </StyledSubmitButton>

@@ -153,7 +153,7 @@ class CreateCompany extends Component {
         <BreakerSmall />
         {this.state.companyError ? (
           <StyledError>
-            Company name must be between 2-15 or workers are empty
+            Company name must be between 2-15 and workers can't be empty
           </StyledError>
         ) : null}
         <StyledSubmitButton onClick={this.handleSubmit}>

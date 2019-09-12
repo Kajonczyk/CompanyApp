@@ -10,15 +10,16 @@ const StyledDivWrapper = styled(StyledDiv)`
   background-color: ${({ theme }) => theme.white};
   transition: transform 2s;
   height: auto;
-  min-height: 100vh;
-  transform: translate(-50%, -50%)
-    translateX(${({ activeCreation }) => (activeCreation ? "0px" : "0px")});
+  min-height: 100%;
+  transform: translate(-50%, -50%);
+  justify-content: center;
+  text-align: center;
 `;
 const StyledSpan = styled.span`
   color: ${({ theme }) => theme.green};
 `;
 const BreakerSmall = styled.div`
-  padding: 10px;
+  padding: 30px;
 `;
 class CreateWorker extends Component {
   state = {

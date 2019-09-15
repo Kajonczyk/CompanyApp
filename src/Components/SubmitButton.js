@@ -13,6 +13,14 @@ const SubmitButton = styled.button`
   &:hover {
     box-shadow: 0px 2px 3px ${({ theme }) => theme.green};
   }
+  ${({ theme }) => theme.mq.tablet} {
+    padding: 6px 14px;
+    font-size: ${({ theme }) => theme.font.size.inputDesktop};
+
+    &:hover {
+      box-shadow: 0px 2px 4px ${({ theme }) => theme.green};
+    }
+  }
 `;
 
 export default SubmitButton;

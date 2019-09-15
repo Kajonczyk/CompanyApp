@@ -17,6 +17,9 @@ const StyledDivWrapper = styled(StyledDiv)`
 `;
 const StyledSpan = styled.span`
   color: ${({ theme }) => theme.green};
+  ${({ theme }) => theme.mq.tablet} {
+    font-size: ${({ theme }) => theme.font.size.xs};
+  }
 `;
 const BreakerSmall = styled.div`
   padding: 30px;

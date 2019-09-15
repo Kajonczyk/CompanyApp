@@ -9,9 +9,11 @@ const theme = {
       xs: ".8rem",
       s: "1.1rem",
       m: "1.6rem",
+      ml: "1.9rem",
       l: "2.1rem",
       generateHeading: "1rem",
-      generateDesc: ".9rem"
+      generateDesc: ".9rem",
+      inputDesktop: "1rem"
     },
     family: {
       alfa: "Alfa Slab One, cursive",

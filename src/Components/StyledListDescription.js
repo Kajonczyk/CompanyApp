@@ -14,6 +14,9 @@ const ListP = styled.p`
   font-size: ${({ theme }) => theme.font.size.xxs};
   width: 25%;
   text-align: justify;
+  ${({ theme }) => theme.mq.tablet} {
+    font-size: ${({ theme }) => theme.font.size.xs};
+  }
 `;
 
 const StyledListDescription = () => {

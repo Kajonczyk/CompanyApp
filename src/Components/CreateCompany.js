@@ -22,6 +22,9 @@ const StyledInput = styled(Input)`
 const CreateCompanyText = styled.p`
   font-size: ${({ theme }) => theme.font.size.m};
   color: ${({ theme }) => theme.white};
+  ${({ theme }) => theme.mq.tablet} {
+    font-size: ${({ theme }) => theme.font.size.ml};
+  }
 `;
 const StyledSubmitButton = styled(SubmitButton)`
   background-color: ${({ theme }) => theme.white};
@@ -46,6 +49,9 @@ const StyledWorkersList = styled.div`
 
 const StyledSpan = styled.span`
   color: ${({ theme }) => theme.white};
+  ${({ theme }) => theme.mq.tablet} {
+    font-size: ${({ theme }) => theme.font.size.xs};
+  }
 `;
 class CreateCompany extends Component {
   state = {

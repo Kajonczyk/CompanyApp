@@ -9,6 +9,7 @@ const StyledWrapper = styled.div`
   min-height: 100%;
   align-items: center;
   justify-content: center;
+  background-color: #ff9069;
 `;
 const Height = styled.div`
   min-height: 100%;

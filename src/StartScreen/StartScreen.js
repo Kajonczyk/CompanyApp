@@ -24,6 +24,10 @@ const StyledSection = styled.div`
   width: 100%;
   background-image: linear-gradient(0deg, #ff9069 50%, #155263 53%);
   z-index: 1;
+  ${({ theme }) => theme.mq.tablet} {
+    width: 768px;
+    box-shadow: 0px 0px 200px -30px #155263;
+  }
 `;
 const StyledCompanyGreeting = styled.div`
   height: 45vh;
@@ -72,6 +76,9 @@ const Shadow = styled.div`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  ${({ theme }) => theme.mq.tablet} {
+    box-shadow: 0px 0px 9px 1px ${({ theme }) => theme.green};
+  }
 `;
 const StyledPlus = styled(Plus)`
   height: 30px;
@@ -82,6 +89,10 @@ const StyledPlus = styled(Plus)`
   transform: translate(-50%, -50%);
   transition: transform 1s;
   transition-timing-function: ease;
+  ${({ theme }) => theme.mq.tablet} {
+    height: 40px;
+    width: 40px;
+  }
 `;
 const StyledCompanyButton2 = styled(SubmitButton)`
   height: 50px;
@@ -93,6 +104,10 @@ const StyledCompanyButton2 = styled(SubmitButton)`
     ${StyledPlus} {
       transform: translate(-50%, -50%) rotateZ(180deg);
     }
+  }
+  ${({ theme }) => theme.mq.tablet} {
+    height: 60px;
+    width: 60px;
   }
 `;
 
@@ -314,7 +329,7 @@ class StartScreen extends Component {
             ) : (
               <StyledCompanyButton2 onClick={this.handleCreateCompany}>
                 <StyledPlus />
-                {/* <Shadow /> */}
+                <Shadow />
               </StyledCompanyButton2>
             )}
             {this.state.isCreateMenu ? (

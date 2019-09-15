@@ -16,6 +16,9 @@ const StyledDate = styled.input`
   border-bottom: 2px solid ${({ theme }) => theme.white};
   color: ${({ theme }) => theme.white};
   padding: 5px 10px;
+
+  display: block;
+  margin: 0px auto;
   margin-bottom: 15px;
 `;
 const StyledTextArea = styled.textarea`
@@ -25,14 +28,20 @@ const StyledTextArea = styled.textarea`
   color: ${({ theme }) => theme.white};
   margin-top: 20px;
   margin-bottom: 20px;
+  resize: none;
   &::placeholder {
     color: ${({ theme }) => theme.white};
-    // text-align: center;
+  }
+  ${({ theme }) => theme.mq.tablet} {
+    width: 450px;
   }
 `;
 const StyledP = styled.p`
   color: ${({ theme }) => theme.white};
   padding-bottom: 5px;
+  ${({ theme }) => theme.mq.tablet} {
+    font-size: ${({ theme }) => theme.font.size.xs};
+  }
 `;
 const StyledConfirmP = styled.p`
   color: lawngreen;

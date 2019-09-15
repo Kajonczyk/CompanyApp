@@ -8,11 +8,21 @@ import EventDashboard from "../Components/EventDashboard";
 import { Redirect } from "react-router-dom";
 import StyledDiv from "../Components/FullHeWiDiv";
 import StyledListDescription from "../Components/StyledListDescription";
+import StyledDots from "../Components/StyledDots";
 
 import { withRouter } from "react-router";
 const StyledDiv_ = styled(StyledDiv)`
   height: auto;
   z-index: 2;
+  ${({ theme }) => theme.mq.tablet} {
+    width: 768px;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 const StyledWorkersList = styled.div`
   width: 95%;
@@ -35,13 +45,17 @@ const StyledLogOutButton = styled(SubmitButton)`
 `;
 const StyledParagraph = styled.p`
   color: ${({ theme }) => theme.white};
-  font-size: ${({ theme }) => theme.font.size.s};
+  font-size: ${({ theme }) => theme.font.size.xs};
 `;
 const StyledWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 30px 20px;
+  ${({ theme }) => theme.mq.tablet} {
+    width: 500px;
+    margin: 0px auto;
+  }
 `;
 const StyledListDescription_ = styled(StyledListDescription)`
   position: absolute;
@@ -70,9 +84,15 @@ const StyledWorkerPreview = styled.div`
 
   background-color: ${({ theme }) => theme.white};
   color: ${({ theme }) => theme.green};
+  ${({ theme }) => theme.mq.tablet} {
+    box-shadow: 0px 0px 2px #ff9069;
+  }
 `;
 const Breaker = styled.div`
   padding: 140px;
+  ${({ theme }) => theme.mq.tablet} {
+    padding: 40px;
+  }
 `;
 const StyledSelect = styled.select`
   border: 0px;
@@ -169,6 +189,11 @@ class BossDashboard extends Component {
     return (
       <>
         <StyledDiv_>
+          <StyledDots />
+          <StyledDots />
+          <StyledDots />
+          <StyledDots />
+          <StyledDots />
           <Breaker />
           <StyledWorkersList>
             {this.props.workers.map(worker => (
